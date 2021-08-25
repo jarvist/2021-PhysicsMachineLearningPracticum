@@ -31,7 +31,7 @@ md"""
 md"""
 The key package we are using here is: [AbstractGPs.jl](https://github.com/JuliaGaussianProcesses/AbstractGPs.jl)
 
-This is designed as a 'base' functionality Gaussian-Process library for Julia, but it actually has all the functionality we need for this initial look.
+This is designed as a 'base' Gaussian Process library for Julia providing primitives for other packages to build on, but it actually has all the functionality we need here.
 """
 
 # ╔═╡ 1354b2ab-ae3c-43a3-8f78-95833294fb7c
@@ -41,8 +41,18 @@ This is designed as a 'base' functionality Gaussian-Process library for Julia, b
 PES(r)=r^2-1.4*r^4   #quadratic-quartic ; 'Mexican hat'
 #PES(r)=.2sin(2π*r)  #Sinusoidal
 
+# ╔═╡ a2ebdb8b-e753-4013-82cb-2491610243cb
+# Plot the potential energy surface we are attempting to model
+plot(-1:0.01:1, PES, label="Underlying potential", xlabel="Position", ylabel="Energy")
+
+# ╔═╡ 48be20c7-2a76-4f34-b4bc-f53ff2b88cc2
+md"""
+Now we need to chose a kernel function for the GP.
+
+[https://juliagaussianprocesses.github.io/KernelFunctions.jl/dev/kernels/](https://juliagaussianprocesses.github.io/KernelFunctions.jl/dev/kernels/) for an extensive list, and instructions on how to define (and combine) your own.
+"""
+
 # ╔═╡ 5dd4f0fc-e455-4e6f-8d44-95899a74b9ba
-# Our chosen kernel function - see https://juliagaussianprocesses.github.io/KernelFunctions.jl/dev/kernels/
 kernelfunction=SEKernel()
 
 # TODO: figure out how to rescale lenght-scale
@@ -1099,7 +1109,9 @@ version = "0.9.1+5"
 # ╠═d7f1568f-9194-4d3e-85ae-a9e77df70a3c
 # ╠═79ee1da0-3baf-41b8-aadc-d9cb57ec9c84
 # ╠═1354b2ab-ae3c-43a3-8f78-95833294fb7c
+# ╠═a2ebdb8b-e753-4013-82cb-2491610243cb
 # ╠═f0690f26-5190-4848-aae7-a744129aa7db
+# ╟─48be20c7-2a76-4f34-b4bc-f53ff2b88cc2
 # ╠═5dd4f0fc-e455-4e6f-8d44-95899a74b9ba
 # ╠═8d656572-2789-4d2d-a55b-2ab662c70be4
 # ╠═19d60e7c-b8aa-4761-82e5-95717862bcde
@@ -1111,7 +1123,7 @@ version = "0.9.1+5"
 # ╠═aae7f71c-7c30-42af-a8fe-c9691ec813bf
 # ╠═d7222bb0-c517-471f-acbc-187efb147835
 # ╠═a21d8704-c3d6-46a3-b0af-80d3c6e4b1a5
-# ╠═9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
+# ╟─9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
 # ╟─680e621f-e2c6-439d-934e-ba19cd62f230
 # ╠═52754661-e863-4898-87d3-a0e6937f9000
 # ╠═8d42123f-dfdd-4061-a459-12eb24f8271b
