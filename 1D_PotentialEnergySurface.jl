@@ -85,8 +85,6 @@ plot(Xrange, mvn_sample(kernelmatrix(kernelfunction,Xrange)))
 # ╔═╡ 9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
 md"""
 datapoints: $(@bind datapoints Slider(1:50, show_value=true))
-
-randomseed $(@bind randomseed Slider(1:10, show_value=true))
 """
 
 # ╔═╡ d7f1568f-9194-4d3e-85ae-a9e77df70a3c
@@ -95,6 +93,7 @@ datapoints
 
 # ╔═╡ 79ee1da0-3baf-41b8-aadc-d9cb57ec9c84
 begin
+	randomseed=42
 	# Generate toy synthetic data.
 	Random.seed!(randomseed) # set the PRNG to this seed; to make reproducible plots as you change the number of data points
 	X = rand(datapoints) .* 2 .- 1
