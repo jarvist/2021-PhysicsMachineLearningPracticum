@@ -26,9 +26,6 @@ md"""
 # Gaussian Process 1D Potential Energy Surface
 """
 
-# ╔═╡ c9a10540-014f-4e37-abc1-4a1cd52887c3
-length = 1.0
-
 # ╔═╡ 1354b2ab-ae3c-43a3-8f78-95833294fb7c
 #PES(x)=x^2
 #PES(r)=r^6-r^12
@@ -39,6 +36,8 @@ PES(r)=r^2-1.4*r^4
 # ╔═╡ 5dd4f0fc-e455-4e6f-8d44-95899a74b9ba
 # Our chosen kernel function - see https://juliagaussianprocesses.github.io/KernelFunctions.jl/dev/kernels/
 kernelfunction=SEKernel()
+
+# TODO: figure out how to rescale lenght-scale
 
 # ╔═╡ 8d656572-2789-4d2d-a55b-2ab662c70be4
 Xrange=range(-3,3; length=100)
@@ -82,20 +81,9 @@ plot(Xrange, mvn_sample(kernelmatrix(kernelfunction,Xrange)))
 # This is here just to show the workflow! the variable is defined by an HTML slider below.
 datapoints
 
-# ╔═╡ 680e621f-e2c6-439d-934e-ba19cd62f230
-md"""
-## Fitting GP with $datapoints data points.
-"""
-
-# ╔═╡ dc46d2d4-2036-4632-a985-3871e6a247db
-@bind randomseed html"<input type='range' min=1 max=10>"
-
 # ╔═╡ 79ee1da0-3baf-41b8-aadc-d9cb57ec9c84
-begin
-	# Generate toy synthetic data.
-	Random.seed!(randomseed)
-	X = rand(datapoints) .* 2 .- 1
-end
+# Generate toy synthetic data.
+X = rand(datapoints) .* 2 .- 1
 
 # ╔═╡ f0690f26-5190-4848-aae7-a744129aa7db
 Y = PES.(X)
@@ -115,6 +103,17 @@ p_fx = posterior(fx, Y)
 # ╔═╡ a21d8704-c3d6-46a3-b0af-80d3c6e4b1a5
 # Data's log-likelihood w.r.t posterior GP `p_fx`. 
 logpdf(p_fx(X), Y)
+
+# ╔═╡ 680e621f-e2c6-439d-934e-ba19cd62f230
+md"""
+## Fitting GP with $datapoints data points.
+"""
+
+# ╔═╡ dc46d2d4-2036-4632-a985-3871e6a247db
+@bind randomseed html"<input type='range' min=1 max=10>"
+
+# ╔═╡ a201a802-2c7c-411a-981e-fbe33a89f20a
+Random.seed!(randomseed) # set the PRNG to this seed; to make reproducible plots as you change the number of data points
 
 # ╔═╡ 52754661-e863-4898-87d3-a0e6937f9000
 begin
@@ -1076,7 +1075,6 @@ version = "0.9.1+5"
 # ╔═╡ Cell order:
 # ╠═357fb630-7a46-4188-bdf7-4f8c90a159fa
 # ╠═d8383102-0415-11ec-1709-630182d4f4ca
-# ╠═c9a10540-014f-4e37-abc1-4a1cd52887c3
 # ╠═d7f1568f-9194-4d3e-85ae-a9e77df70a3c
 # ╠═79ee1da0-3baf-41b8-aadc-d9cb57ec9c84
 # ╠═1354b2ab-ae3c-43a3-8f78-95833294fb7c
@@ -1095,6 +1093,7 @@ version = "0.9.1+5"
 # ╠═9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
 # ╟─680e621f-e2c6-439d-934e-ba19cd62f230
 # ╠═dc46d2d4-2036-4632-a985-3871e6a247db
+# ╠═a201a802-2c7c-411a-981e-fbe33a89f20a
 # ╠═52754661-e863-4898-87d3-a0e6937f9000
 # ╠═8d42123f-dfdd-4061-a459-12eb24f8271b
 # ╠═7a0d638e-f597-47a6-9aaa-85ed83c96b29
