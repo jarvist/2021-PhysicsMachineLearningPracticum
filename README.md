@@ -1,3 +1,12 @@
+# 2021-PhysicsMachineLearningPracticum
+
+Jarvist Moore Frost's Machine Learning practicum for the 2021 Autumn Imperial
+Physics MRes in Big Data and Machine Learning course.
+
+Front end of this repository, with the rendered Pluto notebooks: 
+https://jarvist.github.io/2021-PhysicsMachineLearningPracticum/
+
+#### text below here left for reference ###
 # static-export-template
 
 This is a demo repository containing two Pluto notebooks that are **automatically converted to HTML** by a github action, and published to github pages! 🌝
