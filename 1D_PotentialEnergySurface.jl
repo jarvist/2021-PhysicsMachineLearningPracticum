@@ -19,6 +19,7 @@ begin
 	using LinearAlgebra
 	using Plots
 	using Random
+	using PlutoUI
 end
 
 # ╔═╡ 357fb630-7a46-4188-bdf7-4f8c90a159fa
@@ -82,19 +83,15 @@ end
 plot(Xrange, mvn_sample(kernelmatrix(kernelfunction,Xrange)))
 
 # ╔═╡ 9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
-@bind datapoints html"datapoints <input type='range' min=1 max=50>" 
+md"""
+datapoints: $(@bind datapoints Slider(1:50, show_value=true))
+
+randomseed $(@bind randomseed Slider(1:10, show_value=true))
+"""
 
 # ╔═╡ d7f1568f-9194-4d3e-85ae-a9e77df70a3c
 # This is here just to show the workflow! the variable is defined by an HTML slider below.
 datapoints
-
-# ╔═╡ 680e621f-e2c6-439d-934e-ba19cd62f230
-md"""
-## Fitting GP with $datapoints data points.
-"""
-
-# ╔═╡ dc46d2d4-2036-4632-a985-3871e6a247db
-@bind randomseed html"<input type='range' min=1 max=10>"
 
 # ╔═╡ 79ee1da0-3baf-41b8-aadc-d9cb57ec9c84
 begin
@@ -122,6 +119,11 @@ p_fx = posterior(fx, Y)
 # Data's log-likelihood w.r.t posterior GP `p_fx`. 
 logpdf(p_fx(X), Y)
 
+# ╔═╡ 680e621f-e2c6-439d-934e-ba19cd62f230
+md"""
+## Fitting GP with $datapoints data points.
+"""
+
 # ╔═╡ 52754661-e863-4898-87d3-a0e6937f9000
 begin
 	# Plot posterior.
@@ -133,8 +135,7 @@ begin
 end
 
 # ╔═╡ 8d42123f-dfdd-4061-a459-12eb24f8271b
-	plot(p_fx.prior)
-
+plot(p_fx.prior)
 
 # ╔═╡ 7a0d638e-f597-47a6-9aaa-85ed83c96b29
 ylims!
@@ -148,11 +149,13 @@ PLUTO_PROJECT_TOML_CONTENTS = """
 AbstractGPs = "99985d1d-32ba-4be9-9821-2ec096f28918"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
 AbstractGPs = "~0.3.10"
 Plots = "~1.20.1"
+PlutoUI = "~0.7.9"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
@@ -678,6 +681,12 @@ git-tree-sha1 = "8365fa7758e2e8e4443ce866d6106d8ecbb4474e"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 version = "1.20.1"
 
+[[PlutoUI]]
+deps = ["Base64", "Dates", "InteractiveUtils", "JSON", "Logging", "Markdown", "Random", "Reexport", "Suppressor"]
+git-tree-sha1 = "44e225d5837e2a2345e69a1d1e01ac2443ff9fcb"
+uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+version = "0.7.9"
+
 [[Preferences]]
 deps = ["TOML"]
 git-tree-sha1 = "00cfd92944ca9c760982747e9a1d0d5d86ab1e5a"
@@ -819,6 +828,11 @@ version = "0.6.0"
 [[SuiteSparse]]
 deps = ["Libdl", "LinearAlgebra", "Serialization", "SparseArrays"]
 uuid = "4607b0f0-06f3-5cda-b6b1-a6196a1729e9"
+
+[[Suppressor]]
+git-tree-sha1 = "a819d77f31f83e5792a76081eee1ea6342ab8787"
+uuid = "fd094767-a336-5f1f-9728-57cf17d0bbfb"
+version = "0.2.0"
 
 [[TOML]]
 deps = ["Dates"]
@@ -1100,7 +1114,6 @@ version = "0.9.1+5"
 # ╠═a21d8704-c3d6-46a3-b0af-80d3c6e4b1a5
 # ╠═9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
 # ╟─680e621f-e2c6-439d-934e-ba19cd62f230
-# ╠═dc46d2d4-2036-4632-a985-3871e6a247db
 # ╠═52754661-e863-4898-87d3-a0e6937f9000
 # ╠═8d42123f-dfdd-4061-a459-12eb24f8271b
 # ╠═7a0d638e-f597-47a6-9aaa-85ed83c96b29
