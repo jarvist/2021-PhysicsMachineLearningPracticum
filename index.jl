@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ d68aaf0b-672d-4241-b639-9ed697a7feb2
+html"<button onclick='present()'>Toggle present mode</button>"
+
 # ╔═╡ 95ef9860-0644-11ec-27d4-57fae0e8614c
 md"""
 # 2021 MRes in Machine Learning and Big Data in the Physical Sciences
@@ -30,7 +33,7 @@ An emergent property of the language is that code is highly composable. By writi
 
 As the language is fairly new (first release 2012), it uses modern software engineering practises, and contains a built in (and first class) package manager. 
 
-Explore some features of Julia in the [0_IntroToJulia.jl](0_IntroToJulia.html) notebook.
+Explore some features of Julia in the [00_IntroToJulia.jl](0_IntroToJulia.html) notebook.
 
 The [2012 blog post](https://julialang.org/blog/2012/02/why-we-created-julia/) from the first public release explains much of the initial motivation behind the project. 
 """
@@ -94,6 +97,7 @@ md"""
 """
 
 # ╔═╡ Cell order:
+# ╠═d68aaf0b-672d-4241-b639-9ed697a7feb2
 # ╟─95ef9860-0644-11ec-27d4-57fae0e8614c
 # ╟─38061db4-9741-44c0-b4bc-4532d8ceea01
 # ╟─b56c0674-74a7-484a-b69c-ee27b2574f02

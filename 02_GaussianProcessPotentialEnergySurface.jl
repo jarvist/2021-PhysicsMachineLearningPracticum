@@ -22,6 +22,9 @@ begin
 	using PlutoUI
 end
 
+# ╔═╡ 22486499-721d-498a-87f5-a3b704ba56ba
+html"<button onclick='present()'>Toggle present mode</button>"
+
 # ╔═╡ 357fb630-7a46-4188-bdf7-4f8c90a159fa
 md"""
 # Gaussian Process 1D Potential Energy Surface
@@ -94,7 +97,9 @@ plot(Xrange, mvn_sample(kernelmatrix(kernelfunction,Xrange)))
 
 # ╔═╡ 9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
 md"""
-datapoints: $(@bind datapoints Slider(1:50, show_value=true))
+datapoints: $(@bind datapoints Slider(4:50, show_value=true))
+
+Setting minimum to 5 just so it looks more interesting in the (currently static, until I get the SliderServer working) view.
 """
 
 # ╔═╡ d7f1568f-9194-4d3e-85ae-a9e77df70a3c
@@ -142,6 +147,38 @@ begin
 	plot!(PES, label="Underlying potential")
 	ylims!((-0.4,0.4))
 end
+
+# ╔═╡ 33e75603-b924-46bc-99de-1d4e5a06e4f4
+md"""
+## Slight hack of 'just' using an animated gif; while I figure out how to get the Slider server working :^)
+"""
+
+# ╔═╡ f2a1ed2e-dae8-48c2-af98-d8c601c4af53
+begin
+	let
+		a = @animate for datapoints in 1:40
+
+				randomseed=41
+				# Generate toy synthetic data.
+				Random.seed!(randomseed) # set the PRNG to this seed; to make reproducible plots as you change the number of data points
+				X = rand(datapoints) .* 2 .- 1
+				Y = PES.(X)
+				fx = f(X, 0.001)
+				p_fx = posterior(fx, Y)	
+			scatter(X, Y; label="Data used in fit")
+			
+		plot!(-1.0:0.001:1.0, p_fx; label="Posterior (Prediction)", ribbon_scale=3)
+	# ribbon_scale is the number of standard deviations to plot the ribbon at.
+		plot!(PES, label="Underlying potential")
+		ylims!((-0.4,0.4))
+			
+			ylabel!("Energy (a.u.)")
+			xlabel!("Bond length (a.u.)")
+	end
+	gif(a, fps=6)
+	end
+end
+
 
 # ╔═╡ 8d42123f-dfdd-4061-a459-12eb24f8271b
 plot(p_fx.prior)
@@ -1103,6 +1140,7 @@ version = "0.9.1+5"
 """
 
 # ╔═╡ Cell order:
+# ╟─22486499-721d-498a-87f5-a3b704ba56ba
 # ╟─357fb630-7a46-4188-bdf7-4f8c90a159fa
 # ╟─43133160-8c0f-449d-85fd-6b2c1897ecb1
 # ╠═d8383102-0415-11ec-1709-630182d4f4ca
@@ -1123,9 +1161,11 @@ version = "0.9.1+5"
 # ╠═aae7f71c-7c30-42af-a8fe-c9691ec813bf
 # ╠═d7222bb0-c517-471f-acbc-187efb147835
 # ╠═a21d8704-c3d6-46a3-b0af-80d3c6e4b1a5
-# ╟─9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
+# ╠═9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
 # ╟─680e621f-e2c6-439d-934e-ba19cd62f230
 # ╠═52754661-e863-4898-87d3-a0e6937f9000
+# ╠═33e75603-b924-46bc-99de-1d4e5a06e4f4
+# ╠═f2a1ed2e-dae8-48c2-af98-d8c601c4af53
 # ╠═8d42123f-dfdd-4061-a459-12eb24f8271b
 # ╠═7a0d638e-f597-47a6-9aaa-85ed83c96b29
 # ╠═5554d9ae-1cf7-4af3-961e-37ce59ef4e78
