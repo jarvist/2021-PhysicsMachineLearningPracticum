@@ -22,9 +22,6 @@ begin
 	using PlutoUI
 end
 
-# ╔═╡ 22486499-721d-498a-87f5-a3b704ba56ba
-html"<button onclick='present()'>Toggle present mode</button>"
-
 # ╔═╡ 357fb630-7a46-4188-bdf7-4f8c90a159fa
 md"""
 # Gaussian Process 1D Potential Energy Surface
@@ -97,9 +94,7 @@ plot(Xrange, mvn_sample(kernelmatrix(kernelfunction,Xrange)))
 
 # ╔═╡ 9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
 md"""
-datapoints: $(@bind datapoints Slider(4:50, show_value=true))
-
-Setting minimum to 5 just so it looks more interesting in the (currently static, until I get the SliderServer working) view.
+datapoints: $(@bind datapoints Slider(1:50, show_value=true, default=5))
 """
 
 # ╔═╡ d7f1568f-9194-4d3e-85ae-a9e77df70a3c
@@ -117,6 +112,9 @@ end
 # ╔═╡ f0690f26-5190-4848-aae7-a744129aa7db
 Y = PES.(X)
 
+# ╔═╡ 0dbda158-56d1-4ea2-9512-bdff9da72d43
+Y
+
 # ╔═╡ 367ce91b-b336-4496-8b15-368ae369c2a3
 # Finite projection at the inputs `X`
 fx = f(X, 0.001)
@@ -128,6 +126,9 @@ logpdf(fx, Y)
 # ╔═╡ d7222bb0-c517-471f-acbc-187efb147835
 # Exact posterior given `Y`.
 p_fx = posterior(fx, Y)
+
+# ╔═╡ fe4077bc-7c62-47b9-8a9c-6340516c58d9
+X
 
 # ╔═╡ a21d8704-c3d6-46a3-b0af-80d3c6e4b1a5
 # Data's log-likelihood w.r.t posterior GP `p_fx`. 
@@ -150,7 +151,7 @@ end
 
 # ╔═╡ 33e75603-b924-46bc-99de-1d4e5a06e4f4
 md"""
-## Slight hack of 'just' using an animated gif; while I figure out how to get the Slider server working :^)
+## Slight hack of 'just' using an animated gif; while I figure out how to get the SliderServer.jl // SliderServer.jl + Github Actions + cache working :^)
 """
 
 # ╔═╡ f2a1ed2e-dae8-48c2-af98-d8c601c4af53
@@ -158,9 +159,9 @@ begin
 	let
 		a = @animate for datapoints in 1:40
 
-				randomseed=41
+				randomseed=40
 				# Generate toy synthetic data.
-				Random.seed!(randomseed) # set the PRNG to this seed; to make reproducible plots as you change the number of data points
+				Random.seed!(randomseed) # (re)set the PRNG to this seed; to make reproducible plots as you change the number of data points
 				X = rand(datapoints) .* 2 .- 1
 				Y = PES.(X)
 				fx = f(X, 0.001)
@@ -175,19 +176,143 @@ begin
 			ylabel!("Energy (a.u.)")
 			xlabel!("Bond length (a.u.)")
 	end
-	gif(a, fps=6)
+	gif(a, fps=4) # I like 4 fps, as I can just about see what is going on! 
 	end
 end
 
 
-# ╔═╡ 8d42123f-dfdd-4061-a459-12eb24f8271b
-plot(p_fx.prior)
+# ╔═╡ f66545bf-5ee1-4420-9745-cf547aaf510b
+md"""
+# Active learning
+
+Our little toy problem is a natural candidate for active learning! 
+Let's pretend that instead of having a nice closed-form expression for the potential energy surface, we are instead doing enormous super computer calculations of the electronic structure, or (even slower and more expensive!) constructing a Hamiltonian to evaluate on a quantum computer. 
+
+We then want to know which input parameter (x coordinate) to go and find another 'labelled' data point (i.e. the energy at that point on the potential surface). 
+With a Gaussian Process, we always have a belief about the accuracy of our fit. The model is Bayesian, in that it describes a prbablistic _distribution_. 
+This is what is shown by the 'ribbon' in the above plots.
+"""
+
+# ╔═╡ aa05781d-7868-4970-be8f-f4e0357a0ae5
+# Our GP fit is all within that p_fx variable. Let's have a look at it.
+p_fx
+
+# ╔═╡ f7ec4eb0-0d98-4d9b-b409-c2e716d88909
+# Oooh, those δ's look kind of interesting.
+p_fx.data.δ
+
+# ╔═╡ e9c41e35-af72-4c84-bcae-2e92845838eb
+plot(-1.0:0.001:1.0, p_fx)
+
+# ╔═╡ ca5cdbe1-03f6-4d07-8d9a-b6082a92ded7
+variances=var(p_fx(-1.0:0.001:1.0))
+
+# ╔═╡ 398e47b1-faa1-4a12-a424-03be117bfc6c
+findmax(variances)
+
+# ╔═╡ 357c3483-40f0-4ccc-a78a-924c1e93ec16
+tmp=findmax(x->var(p_fx([x])), -1.0:0.001:1.0)
+
+# ╔═╡ 08875c82-11d6-4c59-8371-bdeba0be1d97
+collect(-1:0.001:1)[tmp[2]]
+
+# ╔═╡ 9a9f25aa-35b2-43ab-b75f-ec3caf8d32cb
+newX=collect(-1.0:0.001:1.0)[1543] # OK, works ! but this is horrific & there must be a better way
+
+# ╔═╡ e2da142b-5a79-41a7-ba23-7f914a947c9d
+newY=PES.(newX)
+
+# ╔═╡ bee15227-b7c8-479e-bcc8-f9c50c4005a6
+cat(X,newX, dims=1)
+
+# ╔═╡ 0db9e4d4-fcd3-4fba-bebf-1c8f392ac93f
+push!(X,newX)
+
+# ╔═╡ 32e3fb82-cceb-4c8b-ae7b-4a877b7201f8
+
+
+# ╔═╡ 173a968d-f12b-4275-9c40-139c486fca09
+# Finite projection at the inputs `X`
+newfx = f(cat(X,newX, dims=1), 0.001)
+
+# ╔═╡ 657c7d5a-48d0-4d29-b83f-0f3d779f9549
+# Exact posterior given `Y`.
+newp_fx = posterior(newfx, cat(Y,newY, dims=1))
+
+# ╔═╡ 57468719-55f1-42c4-ad61-c60923fff333
+plot(-1:0.001:+1, newp_fx)
+# Hurrah! it fixed the double well
+
+# ╔═╡ 662ffab8-92fb-4938-bd94-4df004cc676d
+md"""
+## Active learning double-well animation
+"""
+
+# ╔═╡ c4a1717f-b8c8-46af-a30b-694a830ed731
+begin
+	let
+	arange=-1:0.001:+1
+	# Generate toy synthetic data.
+	Random.seed!(40) # (re)set the PRNG to this seed; to make reproducible plots as you change the number of data points
+	aX = rand(1) .* 2 .- 1
+	aY = PES.(aX)
+	afx = f(aX, 0.001)			
+	ap_fx = posterior(afx, aY)	
+	
+	a = @animate for ap in 1:20
+
+			target=findmax(x->var(ap_fx([x])), arange) # I know
+			newX=collect(arange)[target[2]] # Find X value of highest variation in posterior on our range of interest
+			newY=PES.(newX) # generate corresponding Y datapoint 
+			
+			aX=cat(aX,newX, dims=1) # don't ask (ಠ‿ಠ)
+			aY=cat(aY,newY, dims=1) #  I have faith there is a better way
+			
+			afx = f(aX, 0.001)
+			ap_fx = posterior(afx, aY)	
+			scatter(aX, aY; label="Data used in fit")
+			
+		plot!(-1.0:0.001:1.0, ap_fx; label="Posterior (Prediction)", ribbon_scale=3)
+	# ribbon_scale is the number of standard deviations to plot the ribbon at.
+		plot!(PES, label="Underlying potential")
+		ylims!((-0.4,0.4))
+			
+			ylabel!("Energy (a.u.)")
+			xlabel!("Bond length (a.u.)")
+	end
+	gif(a, fps=4) # I like 4 fps, as I can just about see what is going on! 
+	end
+end
+
+
+# ╔═╡ 80f5215a-d462-425a-95c9-ea5d3b1acd1b
+
+
+# ╔═╡ bef6a46a-aa99-46ab-944e-e2ff986dbc16
+md"""
+OK, well our method worked! 
+In a very data-poor environment (near the start of the above animation), this method tends to work very well. 
+But even in this trivial example, it stagnates very quickly, and starts to repeatedly select sequential regions of the phase-space (here the phase space is just the X coordinate).
+
+>See § 9.7 in Rasmussen and Williams, and as referenced therein:
+>
+>Jones, D.R. A Taxonomy of Global Optimization Methods Based on Response Surfaces. _Journal of Global Optimization_ **21**, 345–383 (2001). [https://doi.org/10.1023/A:1012771025575](https://doi.org/10.1023/A:1012771025575)
+
+The most common application of this technique is in Bayesian optimisation; where you are using the surrogate function (in this case our Gaussian Process) to accelerate the finding of an extremal point in the underlying distribution. 
+
+"""
+
+# ╔═╡ 5134aaac-d0f7-4bc6-bfd7-3daefc36e165
+
 
 # ╔═╡ 7a0d638e-f597-47a6-9aaa-85ed83c96b29
 ylims!
 
 # ╔═╡ 5554d9ae-1cf7-4af3-961e-37ce59ef4e78
 heatmap(p_fx.data.C.U)
+
+# ╔═╡ 22486499-721d-498a-87f5-a3b704ba56ba
+html"<button onclick='present()'>Toggle present mode</button>"
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1140,7 +1265,6 @@ version = "0.9.1+5"
 """
 
 # ╔═╡ Cell order:
-# ╟─22486499-721d-498a-87f5-a3b704ba56ba
 # ╟─357fb630-7a46-4188-bdf7-4f8c90a159fa
 # ╟─43133160-8c0f-449d-85fd-6b2c1897ecb1
 # ╠═d8383102-0415-11ec-1709-630182d4f4ca
@@ -1158,16 +1282,39 @@ version = "0.9.1+5"
 # ╠═922cd773-b3a3-4db5-87eb-cbb0cc4aac53
 # ╠═905aad1c-1a79-44c5-95a0-89c79f8f394f
 # ╠═367ce91b-b336-4496-8b15-368ae369c2a3
+# ╠═fe4077bc-7c62-47b9-8a9c-6340516c58d9
 # ╠═aae7f71c-7c30-42af-a8fe-c9691ec813bf
 # ╠═d7222bb0-c517-471f-acbc-187efb147835
+# ╠═0dbda158-56d1-4ea2-9512-bdff9da72d43
 # ╠═a21d8704-c3d6-46a3-b0af-80d3c6e4b1a5
 # ╠═9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
 # ╟─680e621f-e2c6-439d-934e-ba19cd62f230
 # ╠═52754661-e863-4898-87d3-a0e6937f9000
 # ╠═33e75603-b924-46bc-99de-1d4e5a06e4f4
 # ╠═f2a1ed2e-dae8-48c2-af98-d8c601c4af53
-# ╠═8d42123f-dfdd-4061-a459-12eb24f8271b
+# ╠═f66545bf-5ee1-4420-9745-cf547aaf510b
+# ╠═aa05781d-7868-4970-be8f-f4e0357a0ae5
+# ╠═f7ec4eb0-0d98-4d9b-b409-c2e716d88909
+# ╠═e9c41e35-af72-4c84-bcae-2e92845838eb
+# ╠═ca5cdbe1-03f6-4d07-8d9a-b6082a92ded7
+# ╠═398e47b1-faa1-4a12-a424-03be117bfc6c
+# ╠═357c3483-40f0-4ccc-a78a-924c1e93ec16
+# ╠═08875c82-11d6-4c59-8371-bdeba0be1d97
+# ╠═9a9f25aa-35b2-43ab-b75f-ec3caf8d32cb
+# ╠═e2da142b-5a79-41a7-ba23-7f914a947c9d
+# ╠═bee15227-b7c8-479e-bcc8-f9c50c4005a6
+# ╠═0db9e4d4-fcd3-4fba-bebf-1c8f392ac93f
+# ╠═32e3fb82-cceb-4c8b-ae7b-4a877b7201f8
+# ╠═173a968d-f12b-4275-9c40-139c486fca09
+# ╠═657c7d5a-48d0-4d29-b83f-0f3d779f9549
+# ╠═57468719-55f1-42c4-ad61-c60923fff333
+# ╠═662ffab8-92fb-4938-bd94-4df004cc676d
+# ╠═c4a1717f-b8c8-46af-a30b-694a830ed731
+# ╠═80f5215a-d462-425a-95c9-ea5d3b1acd1b
+# ╠═bef6a46a-aa99-46ab-944e-e2ff986dbc16
+# ╠═5134aaac-d0f7-4bc6-bfd7-3daefc36e165
 # ╠═7a0d638e-f597-47a6-9aaa-85ed83c96b29
 # ╠═5554d9ae-1cf7-4af3-961e-37ce59ef4e78
+# ╟─22486499-721d-498a-87f5-a3b704ba56ba
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
