@@ -8,7 +8,13 @@ using InteractiveUtils
 using Flux, Plots
 
 # ╔═╡ 21211524-6d5a-4bb3-9d0b-98e9ecdd9191
-# Much inspired and from https://github.com/FluxML/model-zoo/blob/master/tutorials/60-minute-blitz/60-minute-blitz.jl ; in turn based on PyTorch tutorial
+md"""
+# §3 - Introduction to automatic differentiation (AD)
+
+
+Much inspired and from https://github.com/FluxML/model-zoo/blob/master/tutorials/60-minute-blitz/60-minute-blitz.jl ; in turn based on PyTorch tutorial
+
+"""
 
 # ╔═╡ bf896744-340a-45e5-81ef-07fae51761ab
 f(x) = x^3 - 2x^2 + 1
