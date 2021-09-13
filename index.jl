@@ -1,11 +1,8 @@
 ### A Pluto.jl notebook ###
-# v0.15.1
+# v0.16.0
 
 using Markdown
 using InteractiveUtils
-
-# ╔═╡ d68aaf0b-672d-4241-b639-9ed697a7feb2
-html"<button onclick='present()'>Toggle present mode</button>"
 
 # ╔═╡ 95ef9860-0644-11ec-27d4-57fae0e8614c
 md"""
@@ -77,6 +74,9 @@ Notebook: [02_GaussianProcessPotentialEnergySurface.jl](02_GaussianProcessPotent
 md"""
 ## § 3 - An introduction to neural networks
 ### Setting weights by hand
+
+Notebook: [03_SingleNeuronFromScratch.jl](03_SingleNeuronFromScratch.html)
+
 ### Automatic differentiation (AD)
 
 Notebook: [03_IntroToAutoDiff.jl](03_IntroToAutoDiff.html)
@@ -86,8 +86,14 @@ Notebook: [03_IntroToAutoDiff.jl](03_IntroToAutoDiff.html)
 
 # ╔═╡ 1eac8a7b-bf29-400b-b776-af03efa62c7e
 md"""
-## § 4 - Convolutional neural networks
-### Identifying phase transitions in the 2D Ising model
+## § 4 - Statistical mechanics
+### A 2D Ising model
+
+[04_IsingModel.jl](04_IsingModel.jl)
+
+### Phase transitions by confusion
+
+[04_PhaseTransitionsByConfusion.jl](04_PhaseTransitionsByConfusion.jl)
 """
 
 # ╔═╡ 74e091b2-3c14-4353-8506-5342b9d18aea
@@ -96,14 +102,17 @@ md"""
 ### Molecules as an atomic graph
 """
 
+# ╔═╡ d68aaf0b-672d-4241-b639-9ed697a7feb2
+html"<button onclick='present()'>Toggle present mode</button>"
+
 # ╔═╡ Cell order:
-# ╠═d68aaf0b-672d-4241-b639-9ed697a7feb2
 # ╟─95ef9860-0644-11ec-27d4-57fae0e8614c
 # ╟─38061db4-9741-44c0-b4bc-4532d8ceea01
 # ╟─b56c0674-74a7-484a-b69c-ee27b2574f02
 # ╟─994b9710-fe61-4fe4-aaa1-5a6263c76904
 # ╟─d16d57b0-7aac-466c-99fa-14387cdaa007
 # ╟─a0436b6b-ac8d-469a-8f1e-0799ab2e8c0b
-# ╟─24477c10-2e69-4e77-bba0-436b3479dd93
-# ╟─1eac8a7b-bf29-400b-b776-af03efa62c7e
+# ╠═24477c10-2e69-4e77-bba0-436b3479dd93
+# ╠═1eac8a7b-bf29-400b-b776-af03efa62c7e
 # ╟─74e091b2-3c14-4353-8506-5342b9d18aea
+# ╠═d68aaf0b-672d-4241-b639-9ed697a7feb2

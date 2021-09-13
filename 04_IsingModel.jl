@@ -1,367 +1,157 @@
 ### A Pluto.jl notebook ###
-# v0.15.1
+# v0.16.0
 
 using Markdown
 using InteractiveUtils
 
-# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
-macro bind(def, element)
-    quote
-        local el = $(esc(element))
-        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
-        el
+# ╔═╡ 98668528-1023-11ec-0a3b-adb3c035dd19
+begin
+	using PlutoUI
+	using Random
+	using RandomNumbers
+	using StaticArrays
+	using Plots
+	using BenchmarkTools
+end
+
+# ╔═╡ 969d74dc-4089-4212-9b75-99539c3223a9
+# via https://nbviewer.jupyter.org/gist/genkuroki/79fd71a75b46303347bed4e52aaa2ba6
+
+# ╔═╡ ca39ab6b-8510-4bdd-a9fd-069d5069de5b
+#rng = Random.default_rng()
+rng = RandomNumbers.Xorshifts.Xoroshiro128Plus(4649) # fastest I've found
+
+# ╔═╡ d7e1c817-3477-4089-935a-b8344a7b0b76
+const β_crit = log(1+sqrt(2))/2
+
+# ╔═╡ 34fdf436-b774-4480-a326-873a61b77bef
+rand_ising2d(m, n=m) = rand(Int8[-1, 1], m, n)
+
+# ╔═╡ a2f625f2-a430-4d5a-84ce-910439da9b16
+s = rand_ising2d(100)
+
+# ╔═╡ 590d8fcf-02aa-4f09-8fd9-ccb2b195618c
+function ising2d_ifelse!(s, β, niters, rng=default_rng())
+    m, n = size(s)
+    prob = @SVector [exp(-2*β*k) for k in -4:4] # pre-compute Boltzmann acceptance probabilities
+    @fastmath @inbounds @simd for iter in 1:niters
+        for l in 1:(n*m)
+			i=rand(rng, 1:m) # choose a random site, to avoid spurious correlation
+			j=rand(rng, 1:n)
+            let NN = s[ifelse(i == 1, m, i-1), j], # spin to the north, torroidal PBCs
+                SS = s[ifelse(i == m, 1, i+1), j],
+                WW = s[i, ifelse(j == 1, n, j-1)],
+                EE = s[i, ifelse(j == n, 1, j+1)],
+                SP = s[i, j] # spin of our site
+					
+                k = SP * (NN + SS + WW + EE)
+                s[i,j] = ifelse(rand(rng) < prob[k+5], -SP, SP)
+            end
+        end
     end
 end
 
-# ╔═╡ d8383102-0415-11ec-1709-630182d4f4ca
-begin
-	using AbstractGPs
-	using LinearAlgebra
-	using Plots
-	using Random
-	using PlutoUI
+# ╔═╡ b0781160-e24d-44e7-9a86-0513a53ecf94
+function ising2d_modulo!(s, β, niters, rng=default_rng())
+    m, n = size(s)
+    prob = @SVector [exp(-2*β*k) for k in -4:4] # pre-compute Boltzmann acceptance probabilities
+    @fastmath @inbounds @simd for iter in 1:niters
+        for l in 1:(n*m)
+			i=rand(rng, 1:m) # choose a random site, to avoid spurious correlation
+			j=rand(rng, 1:n)
+            let NN = s[(i-1 + m)%m, j], # spin to the north, torroidal PBCs
+                SS = s[(i+1 + m)%m, j],
+                WW = s[i, (j-1 + n)%n],
+                EE = s[i, (j+1 +n)%n],
+                SP = s[i, j] # spin of our site
+					
+                k = SP * (NN + SS + WW + EE)
+                s[i,j] = ifelse(rand(rng) < prob[k+5], -SP, SP)
+            end
+        end
+    end
 end
 
-# ╔═╡ 357fb630-7a46-4188-bdf7-4f8c90a159fa
-md"""
-# Gaussian Process 1D Potential Energy Surface
-"""
-
-# ╔═╡ 43133160-8c0f-449d-85fd-6b2c1897ecb1
-md"""
-The key package we are using here is: [AbstractGPs.jl](https://github.com/JuliaGaussianProcesses/AbstractGPs.jl)
-
-This is designed as a 'base' Gaussian Process library for Julia providing primitives for other packages to build on, but it actually has all the functionality we need here.
-"""
-
-# ╔═╡ 1354b2ab-ae3c-43a3-8f78-95833294fb7c
-#PES(x)=x^2          #harmonic
-#PES(r)=r^6-r^12     #Lennard-Jones potential
-#PES(r)=r^2+0.1*r^4  #quadratic+quartic
-PES(r)=r^2-1.4*r^4   #quadratic-quartic ; 'Mexican hat'
-#PES(r)=.2sin(2π*r)  #Sinusoidal
-
-# ╔═╡ cd37902a-3e42-499a-bc01-8b0766dafb05
-# Not working yet! Need to eval / parse the output correctly
-@bind PESascii PlutoUI.Radio([ 
-		"PES(x)=x^2" => "harmonic", 
-		"PES(r)=r^2-1.4*r^4" => "quadratic-quartic ; 'Mexican hat'", 
-		"PES(r)=r^6-r^12" => "Lennard-Jones potential"
-
-		])
-
-# ╔═╡ 31a49d20-f12e-466e-a049-d44fa8055a99
-@eval(Symbol(PESascii))
-
-# ╔═╡ a2ebdb8b-e753-4013-82cb-2491610243cb
-# Plot the potential energy surface we are attempting to model
-plot(-1:0.01:1, PES, label="Underlying potential", xlabel="Position", ylabel="Energy")
-
-# ╔═╡ 48be20c7-2a76-4f34-b4bc-f53ff2b88cc2
-md"""
-Now we need to chose a kernel function for the GP.
-
-[https://juliagaussianprocesses.github.io/KernelFunctions.jl/dev/kernels/](https://juliagaussianprocesses.github.io/KernelFunctions.jl/dev/kernels/) for an extensive list, and instructions on how to define (and combine) your own.
-"""
-
-# ╔═╡ 5dd4f0fc-e455-4e6f-8d44-95899a74b9ba
-kernelfunction=SEKernel()
-
-# TODO: figure out how to rescale lenght-scale
-
-# ╔═╡ 8d656572-2789-4d2d-a55b-2ab662c70be4
-Xrange=range(-3,3; length=100)
-
-# ╔═╡ 19d60e7c-b8aa-4761-82e5-95717862bcde
-# OK, let's look at the covariance matrix!
-plot(heatmap(kernelmatrix(kernelfunction, Xrange); yflip=true))
-
-# ╔═╡ ce33ea95-a579-416a-b922-5771761a42eb
-# Plot a couple of slices through the Kernel matrix
-begin
-	plot(Xrange,kernelfunction.(Xrange,0.0), label="Offset 0.0")
-	plot!(Xrange,kernelfunction.(Xrange,1.5), label="Offset 1.5")
+# ╔═╡ c764363b-131d-4f83-a796-29654d55b491
+PlutoUI.with_terminal() do	    
+	@time ising2d_ifelse!(s, β_crit, 10^4, rng)
+	@time ising2d_modulo!(s, β_crit, 10^4, rng)
 end
 
-# ╔═╡ f7226e84-3cc6-44c9-8a3d-f940cdf6ea5b
-f = GP(kernelfunction)
-
-# ╔═╡ 922cd773-b3a3-4db5-87eb-cbb0cc4aac53
-begin
-	num_inputs = 100
-	
-	num_samples = 12
-	v = randn(num_inputs, num_samples);
-	
-	
-	function mvn_sample(K)
-	    L = cholesky(K + 1e-6 * I)
-	    f = L.L * v
-	    return f
-	end;
+# ╔═╡ 55ac6c7f-8fd6-459a-bca9-7488d83b8a0f
+# Benchmark some of the fastest extra pseudo-Random-Number-Generators (RNGs) provided by 
+# https://juliarandom.github.io/RandomNumbers.jl/stable/man/benchmark/
+PlutoUI.with_terminal() do
+		for myrng in [RandomNumbers.Xorshifts.Xoroshiro128Plus(4649) , RandomNumbers.Xorshifts.Xoroshiro128Star(4649), Random.default_rng()]
+			print(myrng, "  ")
+		
+		    @time ising2d_ifelse!(s, β_crit, 10^4, myrng)
+		end
 end
 
-# ╔═╡ 905aad1c-1a79-44c5-95a0-89c79f8f394f
-plot(Xrange, mvn_sample(kernelmatrix(kernelfunction,Xrange)))
-
-# ╔═╡ 9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
-md"""
-datapoints: $(@bind datapoints Slider(1:50, show_value=true, default=5))
-"""
-
-# ╔═╡ d7f1568f-9194-4d3e-85ae-a9e77df70a3c
-# This is here just to show the workflow! the variable is defined by an HTML slider below.
-datapoints
-
-# ╔═╡ 79ee1da0-3baf-41b8-aadc-d9cb57ec9c84
-begin
-	randomseed=42
-	# Generate toy synthetic data.
-	Random.seed!(randomseed) # set the PRNG to this seed; to make reproducible plots as you change the number of data points
-	X = rand(datapoints) .* 2 .- 1
+# ╔═╡ 840dc3f5-b0ab-4ada-bb0e-aaedeb2f4d6c
+PlutoUI.with_terminal() do
+	@btime ising2d_ifelse!(s, β_crit, 10^3, rng)
 end
 
-# ╔═╡ f0690f26-5190-4848-aae7-a744129aa7db
-Y = PES.(X)
+# ╔═╡ 3ed67e98-2e47-4772-bf78-0319f00eae86
+# 125 million updates / second
+10^3*10^2*10^2 / 80E-3
 
-# ╔═╡ 0dbda158-56d1-4ea2-9512-bdff9da72d43
-Y
+# ╔═╡ 1fb4382b-ac66-49fe-a1e1-967cf4b203a8
+# 8 nanoseconds (? check working) per update from above timing data
+(10^3*10^2*10^2 / 80E-3)^-1
 
-# ╔═╡ 367ce91b-b336-4496-8b15-368ae369c2a3
-# Finite projection at the inputs `X`
-fx = f(X, 0.001)
-
-# ╔═╡ aae7f71c-7c30-42af-a8fe-c9691ec813bf
-# Data's log-likelihood w.r.t prior GP `f`. 
-logpdf(fx, Y)
-
-# ╔═╡ d7222bb0-c517-471f-acbc-187efb147835
-# Exact posterior given `Y`.
-p_fx = posterior(fx, Y)
-
-# ╔═╡ fe4077bc-7c62-47b9-8a9c-6340516c58d9
-X
-
-# ╔═╡ a21d8704-c3d6-46a3-b0af-80d3c6e4b1a5
-# Data's log-likelihood w.r.t posterior GP `p_fx`. 
-logpdf(p_fx(X), Y)
-
-# ╔═╡ 680e621f-e2c6-439d-934e-ba19cd62f230
-md"""
-## Fitting GP with $datapoints data points.
-"""
-
-# ╔═╡ 52754661-e863-4898-87d3-a0e6937f9000
-begin
-	# Plot posterior.
-	scatter(X, Y; label="Data used in fit")
-	plot!(-1.0:0.001:1.0, p_fx; label="Posterior (Prediction)", ribbon_scale=3)
-	# ribbon_scale is the number of standard deviations to plot the ribbon at.
-	plot!(PES, label="Underlying potential")
-	ylims!((-0.4,0.4))
-end
-
-# ╔═╡ 33e75603-b924-46bc-99de-1d4e5a06e4f4
-md"""
-## Slight hack of 'just' using an animated gif; while I figure out how to get the SliderServer.jl // SliderServer.jl + Github Actions + cache working :^)
-"""
-
-# ╔═╡ f2a1ed2e-dae8-48c2-af98-d8c601c4af53
-begin
-	let
-		a = @animate for datapoints in 1:40
-
-				randomseed=40
-				# Generate toy synthetic data.
-				Random.seed!(randomseed) # (re)set the PRNG to this seed; to make reproducible plots as you change the number of data points
-				X = rand(datapoints) .* 2 .- 1
-				Y = PES.(X)
-				fx = f(X, 0.001)
-				p_fx = posterior(fx, Y)	
-			scatter(X, Y; label="$(length(X)) datapoints in fit")
-			
-		plot!(-1.0:0.001:1.0, p_fx; label="Posterior (Prediction)", ribbon_scale=3)
-	# ribbon_scale is the number of standard deviations to plot the ribbon at.
-		plot!(PES, label="Underlying potential")
-		ylims!((-0.4,0.4))
-			
-			ylabel!("Energy (a.u.)")
-			xlabel!("Bond length (a.u.)")
+# ╔═╡ 0b3d1f59-bf90-4e9d-8aee-73d8192e2e59
+let
+	a= @animate for frames in 1:100
+		ising2d_ifelse!(s, β_crit, 10^0, rng)
+		heatmap(s; size=(400, 400), axis=false, colorbar=false)
 	end
-	gif(a, fps=4) # I like 4 fps, as I can just about see what is going on! 
-	end
+	gif(a, fps=10)
 end
 
-
-# ╔═╡ f66545bf-5ee1-4420-9745-cf547aaf510b
-md"""
-# Active learning
-
-Our little toy problem is a natural candidate for active learning! 
-Let's pretend that instead of having a nice closed-form expression for the potential energy surface, we are instead doing enormous super computer calculations of the electronic structure, or (even slower and more expensive!) constructing a Hamiltonian to evaluate on a quantum computer. 
-
-We then want to know which input parameter (x coordinate) to go and find another 'labelled' data point (i.e. the energy at that point on the potential surface). 
-With a Gaussian Process, we always have a belief about the accuracy of our fit. The model is Bayesian, in that it describes a prbablistic _distribution_. 
-This is what is shown by the 'ribbon' in the above plots.
-"""
-
-# ╔═╡ aa05781d-7868-4970-be8f-f4e0357a0ae5
-# Our GP fit is all within that p_fx variable. Let's have a look at it.
-p_fx
-
-# ╔═╡ f7ec4eb0-0d98-4d9b-b409-c2e716d88909
-# Oooh, those δ's look kind of interesting.
-p_fx.data.δ
-
-# ╔═╡ e9c41e35-af72-4c84-bcae-2e92845838eb
-plot(-1.0:0.001:1.0, p_fx)
-
-# ╔═╡ ca5cdbe1-03f6-4d07-8d9a-b6082a92ded7
-variances=var(p_fx(-1.0:0.001:1.0))
-
-# ╔═╡ 398e47b1-faa1-4a12-a424-03be117bfc6c
-findmax(variances)
-
-# ╔═╡ 357c3483-40f0-4ccc-a78a-924c1e93ec16
-tmp=findmax(x->var(p_fx([x])), -1.0:0.001:1.0)
-
-# ╔═╡ 08875c82-11d6-4c59-8371-bdeba0be1d97
-collect(-1:0.001:1)[tmp[2]]
-
-# ╔═╡ 9a9f25aa-35b2-43ab-b75f-ec3caf8d32cb
-newX=collect(-1.0:0.001:1.0)[1543] # OK, works ! but this is horrific & there must be a better way
-
-# ╔═╡ e2da142b-5a79-41a7-ba23-7f914a947c9d
-newY=PES.(newX)
-
-# ╔═╡ bee15227-b7c8-479e-bcc8-f9c50c4005a6
-cat(X,newX, dims=1)
-
-# ╔═╡ 0db9e4d4-fcd3-4fba-bebf-1c8f392ac93f
-push!(X,newX)
-
-# ╔═╡ 32e3fb82-cceb-4c8b-ae7b-4a877b7201f8
-
-
-# ╔═╡ 173a968d-f12b-4275-9c40-139c486fca09
-# Finite projection at the inputs `X`
-newfx = f(cat(X,newX, dims=1), 0.001)
-
-# ╔═╡ 657c7d5a-48d0-4d29-b83f-0f3d779f9549
-# Exact posterior given `Y`.
-newp_fx = posterior(newfx, cat(Y,newY, dims=1))
-
-# ╔═╡ 57468719-55f1-42c4-ad61-c60923fff333
-plot(-1:0.001:+1, newp_fx)
-# Hurrah! it fixed the double well
-
-# ╔═╡ 662ffab8-92fb-4938-bd94-4df004cc676d
-md"""
-## Active learning double-well animation
-"""
-
-# ╔═╡ c4a1717f-b8c8-46af-a30b-694a830ed731
-begin
-	let
-	arange=-1:0.001:+1
-	# Generate toy synthetic data.
-	Random.seed!(40) # (re)set the PRNG to this seed; to make reproducible plots as you change the number of data points
-	aX = rand(1) .* 2 .- 1
-	aY = PES.(aX)
-	afx = f(aX, 0.001)			
-	ap_fx = posterior(afx, aY)	
-	
-	a = @animate for ap in 1:20
-
-			target=findmax(x->var(ap_fx([x])), arange) # I know
-			newX=collect(arange)[target[2]] # Find X value of highest variation in posterior on our range of interest
-			newY=PES.(newX) # generate corresponding Y datapoint 
-			
-			aX=cat(aX,newX, dims=1) # don't ask (ಠ‿ಠ)
-			aY=cat(aY,newY, dims=1) #  I have faith there is a better way
-			
-			afx = f(aX, 0.001)
-			ap_fx = posterior(afx, aY)	
-			scatter(aX, aY; label="$(length(aX)) datapoints in fit")
-			
-		plot!(-1.0:0.001:1.0, ap_fx; label="Posterior (Prediction)", ribbon_scale=3)
-	# ribbon_scale is the number of standard deviations to plot the ribbon at.
-		plot!(PES, label="Underlying potential")
-		ylims!((-0.4,0.4))
-			
-			ylabel!("Energy (a.u.)")
-			xlabel!("Bond length (a.u.)")
+# ╔═╡ fcbc4aff-639f-42ab-8df1-c30d10fb49bd
+let
+	a= @animate for frames in 1:100
+		ising2d_ifelse!(s, β_crit, 10^3, rng)
+		heatmap(s; size=(400, 400), axis=false, colorbar=false)
 	end
-	gif(a, fps=4) # I like 4 fps, as I can just about see what is going on! 
-	end
+	gif(a, fps=10)
 end
 
+# ╔═╡ b9d62377-96b6-4f9a-be30-8f8b371a802b
+let
+	s = rand_ising2d(500)
+	a= @animate for frames in 1:100
+		ising2d_ifelse!(s, β_crit, 10^3, rng)
+		heatmap(s; size=(500, 500), axis=false, colorbar=false)
+	end
+	gif(a, fps=10)
+end
 
-# ╔═╡ 80f5215a-d462-425a-95c9-ea5d3b1acd1b
-
-
-# ╔═╡ bef6a46a-aa99-46ab-944e-e2ff986dbc16
-md"""
-OK, our method worked! Technically we would describe this as chosing points with the highest estimated posterior variance. 
-In a data-poor environment (near the start of the above animation), this method tends to work very well. 
-But even in this trivial example, it stagnates quickly, and starts to repeatedly select sequential regions of the phase-space (here the phase space is just the X coordinate).
-
-There have been a number of improved strategies developed for choosing new data points. 
-The obvious improvement to what we did here would be to select points that reduce the *average* variance over the region of interest.
-
->See § 9.7 in Rasmussen and Williams for a brief general description, and as referenced therein:
->
->Jones, D.R. A Taxonomy of Global Optimization Methods Based on Response Surfaces. _Journal of Global Optimization_ **21**, 345–383 (2001). [https://doi.org/10.1023/A:1012771025575](https://doi.org/10.1023/A:1012771025575)
->
->Elena Uteva, Richard S. Graham, Richard D. Wilkinson, and Richard J. Wheatley , "Active learning in Gaussian process interpolation of potential energy surfaces", The Journal of Chemical Physics 149, 174114 (2018) https://doi.org/10.1063/1.5051772
-
-The most common application of this technique is in Bayesian optimisation; where you are using the surrogate function (in this case our Gaussian Process) to accelerate the finding of an extremal point in the underlying distribution. 
-
-
-"""
-
-# ╔═╡ b936ca7f-26bc-4143-bcde-8d1a475e50f8
-
-
-# ╔═╡ 32633c04-bdac-4751-a808-b408bbb2da84
-
-
-# ╔═╡ 5134aaac-d0f7-4bc6-bfd7-3daefc36e165
-
-
-# ╔═╡ 7a0d638e-f597-47a6-9aaa-85ed83c96b29
-ylims!
-
-# ╔═╡ 5554d9ae-1cf7-4af3-961e-37ce59ef4e78
-heatmap(p_fx.data.C.U)
-
-# ╔═╡ 22486499-721d-498a-87f5-a3b704ba56ba
-html"<button onclick='present()'>Toggle present mode</button>"
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
-AbstractGPs = "99985d1d-32ba-4be9-9821-2ec096f28918"
-LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+RandomNumbers = "e6cf234a-135c-5ec9-84dd-332b85af5143"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 
 [compat]
-AbstractGPs = "~0.3.10"
-Plots = "~1.20.1"
+BenchmarkTools = "~1.1.4"
+Plots = "~1.21.1"
 PlutoUI = "~0.7.9"
+RandomNumbers = "~1.5.3"
+StaticArrays = "~1.2.12"
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000002
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
-
-[[AbstractGPs]]
-deps = ["ChainRulesCore", "Distributions", "FillArrays", "KernelFunctions", "LinearAlgebra", "Random", "RecipesBase", "Reexport", "Statistics", "StatsBase", "Test"]
-git-tree-sha1 = "d1b311e6f0358fa73c82473daf23de6ba1148900"
-uuid = "99985d1d-32ba-4be9-9821-2ec096f28918"
-version = "0.3.10"
 
 [[Adapt]]
 deps = ["LinearAlgebra"]
@@ -378,6 +168,12 @@ uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 [[Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 
+[[BenchmarkTools]]
+deps = ["JSON", "Logging", "Printf", "Statistics", "UUIDs"]
+git-tree-sha1 = "42ac5e523869a84eac9669eaceed9e4aa0e1587b"
+uuid = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+version = "1.1.4"
+
 [[Bzip2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "c3598e525718abcc440f69cc6d5f60dda0a1b61e"
@@ -389,12 +185,6 @@ deps = ["Artifacts", "Bzip2_jll", "Fontconfig_jll", "FreeType2_jll", "Glib_jll",
 git-tree-sha1 = "e2f47f6d8337369411569fd45ae5753ca10394c6"
 uuid = "83423d85-b0ee-5818-9007-b63ccbeb887a"
 version = "1.16.0+6"
-
-[[ChainRulesCore]]
-deps = ["Compat", "LinearAlgebra", "SparseArrays"]
-git-tree-sha1 = "bdc0937269321858ab2a4f288486cb258b9a0af7"
-uuid = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
-version = "1.3.0"
 
 [[ColorSchemes]]
 deps = ["ColorTypes", "Colors", "FixedPointNumbers", "Random"]
@@ -423,11 +213,6 @@ version = "3.34.0"
 [[CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-
-[[CompositionsBase]]
-git-tree-sha1 = "455419f7e328a1a2493cabc6428d79e951349769"
-uuid = "a33af91c-f02d-484b-be07-31d278c5ca2b"
-version = "0.1.1"
 
 [[Contour]]
 deps = ["StaticArrays"]
@@ -459,27 +244,9 @@ uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
 deps = ["Mmap"]
 uuid = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 
-[[Distances]]
-deps = ["LinearAlgebra", "Statistics", "StatsAPI"]
-git-tree-sha1 = "abe4ad222b26af3337262b8afb28fab8d215e9f8"
-uuid = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
-version = "0.10.3"
-
 [[Distributed]]
 deps = ["Random", "Serialization", "Sockets"]
 uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
-
-[[Distributions]]
-deps = ["FillArrays", "LinearAlgebra", "PDMats", "Printf", "QuadGK", "Random", "SparseArrays", "SpecialFunctions", "Statistics", "StatsBase", "StatsFuns"]
-git-tree-sha1 = "3889f646423ce91dd1055a76317e9a1d3a23fff1"
-uuid = "31c24e10-a181-5473-b8eb-7969acd0382f"
-version = "0.25.11"
-
-[[DocStringExtensions]]
-deps = ["LibGit2"]
-git-tree-sha1 = "a32185f5428d3986f47c2ab78b1f216d5e6cc96f"
-uuid = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
-version = "0.8.5"
 
 [[Downloads]]
 deps = ["ArgTools", "LibCURL", "NetworkOptions"]
@@ -508,12 +275,6 @@ deps = ["Artifacts", "Bzip2_jll", "FreeType2_jll", "FriBidi_jll", "JLLWrappers",
 git-tree-sha1 = "3cc57ad0a213808473eafef4845a74766242e05f"
 uuid = "b22a6f82-2f65-5046-a5b2-351ab43fb4e5"
 version = "4.3.1+4"
-
-[[FillArrays]]
-deps = ["LinearAlgebra", "Random", "SparseArrays", "Statistics"]
-git-tree-sha1 = "7c365bdef6380b29cfc5caaf99688cd7489f9b87"
-uuid = "1a297f60-69ca-5386-bcde-b61e274b549b"
-version = "0.12.2"
 
 [[FixedPointNumbers]]
 deps = ["Statistics"]
@@ -544,12 +305,6 @@ deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "aa31987c2ba8704e23c6c8ba8a4f769d5d7e4f91"
 uuid = "559328eb-81f9-559d-9380-de523a88c83c"
 version = "1.0.10+0"
-
-[[Functors]]
-deps = ["MacroTools"]
-git-tree-sha1 = "4cd9e70bf8fce05114598b663ad79dfe9ae432b3"
-uuid = "d9f16b24-f501-4c13-a1f2-28368ffc5196"
-version = "0.2.3"
 
 [[GLFW_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libglvnd_jll", "Pkg", "Xorg_libXcursor_jll", "Xorg_libXi_jll", "Xorg_libXinerama_jll", "Xorg_libXrandr_jll"]
@@ -608,11 +363,6 @@ version = "0.5.0"
 deps = ["Markdown"]
 uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
 
-[[IrrationalConstants]]
-git-tree-sha1 = "f76424439413893a832026ca355fe273e93bce94"
-uuid = "92d709cd-6900-40b7-9082-c6be49f344b6"
-version = "0.1.0"
-
 [[IterTools]]
 git-tree-sha1 = "05110a2ab1fc5f932622ffea2a003221f4782c18"
 uuid = "c8e1da08-722c-5040-9ed9-7db0dc04731e"
@@ -640,12 +390,6 @@ deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "d735490ac75c5cb9f1b00d8b5509c11984dc6943"
 uuid = "aacddb02-875f-59d6-b918-886e6ef4fbf8"
 version = "2.1.0+0"
-
-[[KernelFunctions]]
-deps = ["ChainRulesCore", "Compat", "CompositionsBase", "Distances", "FillArrays", "Functors", "IrrationalConstants", "LinearAlgebra", "LogExpFunctions", "Random", "Requires", "SpecialFunctions", "StatsBase", "TensorCore", "Test", "ZygoteRules"]
-git-tree-sha1 = "6f46fb7fa868699dfbb6ae7973ba2825d3558ade"
-uuid = "ec8451be-7e33-11e9-00cf-bbf324bd1392"
-version = "0.10.16"
 
 [[LAME_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -747,12 +491,6 @@ version = "2.36.0+0"
 deps = ["Libdl"]
 uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 
-[[LogExpFunctions]]
-deps = ["DocStringExtensions", "IrrationalConstants", "LinearAlgebra"]
-git-tree-sha1 = "3d682c07e6dd250ed082f883dc88aee7996bf2cc"
-uuid = "2ab3a3ac-af41-5b50-aa03-7779005ae688"
-version = "0.3.0"
-
 [[Logging]]
 uuid = "56ddb016-857b-54e1-b83d-db4d58db5568"
 
@@ -813,12 +551,6 @@ git-tree-sha1 = "15003dcb7d8db3c6c857fda14891a539a8f2705a"
 uuid = "458c3c95-2e84-50aa-8efc-19380b2a3a95"
 version = "1.1.10+0"
 
-[[OpenSpecFun_jll]]
-deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "13652491f6856acfd2db29360e1bbcd4565d04f1"
-uuid = "efe28fd5-8261-553b-a9e1-b2916fc3738e"
-version = "0.5.5+0"
-
 [[Opus_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "51a08fb14ec28da2ec7a927c4337e4332c2a4720"
@@ -835,12 +567,6 @@ deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
 git-tree-sha1 = "b2a7af664e098055a7529ad1a900ded962bca488"
 uuid = "2f80f16e-611a-54ab-bc61-aa92de5b98fc"
 version = "8.44.0+0"
-
-[[PDMats]]
-deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
-git-tree-sha1 = "4dd403333bcf0909341cfe57ec115152f937d7d8"
-uuid = "90014a1f-27ba-587c-ab20-58faa44d9150"
-version = "0.11.1"
 
 [[Parsers]]
 deps = ["Dates"]
@@ -866,15 +592,15 @@ version = "2.0.1"
 
 [[PlotUtils]]
 deps = ["ColorSchemes", "Colors", "Dates", "Printf", "Random", "Reexport", "Statistics"]
-git-tree-sha1 = "501c20a63a34ac1d015d5304da0e645f42d91c9f"
+git-tree-sha1 = "c67334c786157d6ef091ce622b365d3d60b1e2c4"
 uuid = "995b91a9-d308-5afd-9ec6-746e21dbc043"
-version = "1.0.11"
+version = "1.0.12"
 
 [[Plots]]
-deps = ["Base64", "Contour", "Dates", "FFMPEG", "FixedPointNumbers", "GR", "GeometryBasics", "JSON", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "PlotThemes", "PlotUtils", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "Requires", "Scratch", "Showoff", "SparseArrays", "Statistics", "StatsBase", "UUIDs"]
-git-tree-sha1 = "8365fa7758e2e8e4443ce866d6106d8ecbb4474e"
+deps = ["Base64", "Contour", "Dates", "Downloads", "FFMPEG", "FixedPointNumbers", "GR", "GeometryBasics", "JSON", "Latexify", "LinearAlgebra", "Measures", "NaNMath", "PlotThemes", "PlotUtils", "Printf", "REPL", "Random", "RecipesBase", "RecipesPipeline", "Reexport", "Requires", "Scratch", "Showoff", "SparseArrays", "Statistics", "StatsBase", "UUIDs"]
+git-tree-sha1 = "0036d433cacff4767ff622be3cb2c281b773a2b4"
 uuid = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
-version = "1.20.1"
+version = "1.21.1"
 
 [[PlutoUI]]
 deps = ["Base64", "Dates", "InteractiveUtils", "JSON", "Logging", "Markdown", "Random", "Reexport", "Suppressor"]
@@ -898,12 +624,6 @@ git-tree-sha1 = "ad368663a5e20dbb8d6dc2fddeefe4dae0781ae8"
 uuid = "ea2cea3b-5b76-57ae-a6ef-0a8af62496e1"
 version = "5.15.3+0"
 
-[[QuadGK]]
-deps = ["DataStructures", "LinearAlgebra"]
-git-tree-sha1 = "12fbe86da16df6679be7521dfb39fbc861e1dc7b"
-uuid = "1fd47b50-473d-5c70-9696-f719f8f3bcdc"
-version = "2.4.1"
-
 [[REPL]]
 deps = ["InteractiveUtils", "Markdown", "Sockets", "Unicode"]
 uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
@@ -912,6 +632,12 @@ uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 deps = ["Serialization"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
+[[RandomNumbers]]
+deps = ["Random", "Requires"]
+git-tree-sha1 = "043da614cc7e95c703498a491e2c21f58a2b8111"
+uuid = "e6cf234a-135c-5ec9-84dd-332b85af5143"
+version = "1.5.3"
+
 [[RecipesBase]]
 git-tree-sha1 = "44a75aa7a527910ee3d1751d1f0e4148698add9e"
 uuid = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
@@ -919,32 +645,20 @@ version = "1.1.2"
 
 [[RecipesPipeline]]
 deps = ["Dates", "NaNMath", "PlotUtils", "RecipesBase"]
-git-tree-sha1 = "2a7a2469ed5d94a98dea0e85c46fa653d76be0cd"
+git-tree-sha1 = "32efa73dece357e9c834cae8af00265752c80061"
 uuid = "01d81517-befc-4cb6-b9ec-a95719d0359c"
-version = "0.3.4"
+version = "0.3.5"
 
 [[Reexport]]
-git-tree-sha1 = "5f6c21241f0f655da3952fd60aa18477cf96c220"
+git-tree-sha1 = "45e428421666073eab6f2da5c9d310d99bb12f9b"
 uuid = "189a3867-3050-52da-a836-e630ba90ab69"
-version = "1.1.0"
+version = "1.2.2"
 
 [[Requires]]
 deps = ["UUIDs"]
 git-tree-sha1 = "4036a3bd08ac7e968e27c203d45f5fff15020621"
 uuid = "ae029012-a4dd-5104-9daa-d747884805df"
 version = "1.1.3"
-
-[[Rmath]]
-deps = ["Random", "Rmath_jll"]
-git-tree-sha1 = "bf3188feca147ce108c76ad82c2792c57abe7b1f"
-uuid = "79098fc4-a85e-5d69-aa6a-4863f24498fa"
-version = "0.7.0"
-
-[[Rmath_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
-git-tree-sha1 = "68db32dff12bb6127bac73c209881191bf0efbb7"
-uuid = "f50d1b31-88e8-58de-be2c-1cc44531875f"
-version = "0.3.0+0"
 
 [[SHA]]
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
@@ -981,12 +695,6 @@ version = "1.0.1"
 deps = ["LinearAlgebra", "Random"]
 uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
-[[SpecialFunctions]]
-deps = ["ChainRulesCore", "LogExpFunctions", "OpenSpecFun_jll"]
-git-tree-sha1 = "a322a9493e49c5f3a10b50df3aedaf1cdb3244b7"
-uuid = "276daf66-3868-5448-9aa4-cd146d93841b"
-version = "1.6.1"
-
 [[StaticArrays]]
 deps = ["LinearAlgebra", "Random", "Statistics"]
 git-tree-sha1 = "3240808c6d463ac46f1c1cd7638375cd22abbccb"
@@ -1008,21 +716,11 @@ git-tree-sha1 = "fed1ec1e65749c4d96fc20dd13bea72b55457e62"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 version = "0.33.9"
 
-[[StatsFuns]]
-deps = ["IrrationalConstants", "LogExpFunctions", "Reexport", "Rmath", "SpecialFunctions"]
-git-tree-sha1 = "20d1bb720b9b27636280f751746ba4abb465f19d"
-uuid = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
-version = "0.9.9"
-
 [[StructArrays]]
 deps = ["Adapt", "DataAPI", "StaticArrays", "Tables"]
-git-tree-sha1 = "000e168f5cc9aded17b6999a560b7c11dda69095"
+git-tree-sha1 = "1700b86ad59348c0f9f68ddc95117071f947072d"
 uuid = "09ab397b-f2b6-538f-b94a-2f83cf4a842a"
-version = "0.6.0"
-
-[[SuiteSparse]]
-deps = ["Libdl", "LinearAlgebra", "Serialization", "SparseArrays"]
-uuid = "4607b0f0-06f3-5cda-b6b1-a6196a1729e9"
+version = "0.6.1"
 
 [[Suppressor]]
 git-tree-sha1 = "a819d77f31f83e5792a76081eee1ea6342ab8787"
@@ -1048,12 +746,6 @@ version = "1.5.0"
 [[Tar]]
 deps = ["ArgTools", "SHA"]
 uuid = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
-
-[[TensorCore]]
-deps = ["LinearAlgebra"]
-git-tree-sha1 = "1feb45f88d133a655e001435632f019a9a1bcdb6"
-uuid = "62fd8b95-f654-4bbd-a8a5-9c27f68ccd50"
-version = "0.1.1"
 
 [[Test]]
 deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
@@ -1231,12 +923,6 @@ git-tree-sha1 = "cc4bf3fdde8b7e3e9fa0351bdeedba1cf3b7f6e6"
 uuid = "3161d3a3-bdf6-5164-811a-617609db77b4"
 version = "1.5.0+0"
 
-[[ZygoteRules]]
-deps = ["MacroTools"]
-git-tree-sha1 = "9e7a1e8ca60b742e508a315c17eef5211e7fbfd7"
-uuid = "700de1a5-db45-46bc-99cf-38207098b444"
-version = "0.2.1"
-
 [[libass_jll]]
 deps = ["Artifacts", "Bzip2_jll", "FreeType2_jll", "FriBidi_jll", "JLLWrappers", "Libdl", "Pkg", "Zlib_jll"]
 git-tree-sha1 = "acc685bcf777b2202a904cdcb49ad34c2fa1880c"
@@ -1289,60 +975,21 @@ version = "0.9.1+5"
 """
 
 # ╔═╡ Cell order:
-# ╟─357fb630-7a46-4188-bdf7-4f8c90a159fa
-# ╟─43133160-8c0f-449d-85fd-6b2c1897ecb1
-# ╠═d8383102-0415-11ec-1709-630182d4f4ca
-# ╠═d7f1568f-9194-4d3e-85ae-a9e77df70a3c
-# ╠═79ee1da0-3baf-41b8-aadc-d9cb57ec9c84
-# ╠═1354b2ab-ae3c-43a3-8f78-95833294fb7c
-# ╠═cd37902a-3e42-499a-bc01-8b0766dafb05
-# ╠═31a49d20-f12e-466e-a049-d44fa8055a99
-# ╠═a2ebdb8b-e753-4013-82cb-2491610243cb
-# ╠═f0690f26-5190-4848-aae7-a744129aa7db
-# ╟─48be20c7-2a76-4f34-b4bc-f53ff2b88cc2
-# ╠═5dd4f0fc-e455-4e6f-8d44-95899a74b9ba
-# ╠═8d656572-2789-4d2d-a55b-2ab662c70be4
-# ╠═19d60e7c-b8aa-4761-82e5-95717862bcde
-# ╠═ce33ea95-a579-416a-b922-5771761a42eb
-# ╠═f7226e84-3cc6-44c9-8a3d-f940cdf6ea5b
-# ╠═922cd773-b3a3-4db5-87eb-cbb0cc4aac53
-# ╠═905aad1c-1a79-44c5-95a0-89c79f8f394f
-# ╠═367ce91b-b336-4496-8b15-368ae369c2a3
-# ╠═fe4077bc-7c62-47b9-8a9c-6340516c58d9
-# ╠═aae7f71c-7c30-42af-a8fe-c9691ec813bf
-# ╠═d7222bb0-c517-471f-acbc-187efb147835
-# ╠═0dbda158-56d1-4ea2-9512-bdff9da72d43
-# ╠═a21d8704-c3d6-46a3-b0af-80d3c6e4b1a5
-# ╠═9a6fcc22-e4d0-4d90-b6ae-05bdd72fb8ff
-# ╟─680e621f-e2c6-439d-934e-ba19cd62f230
-# ╠═52754661-e863-4898-87d3-a0e6937f9000
-# ╠═33e75603-b924-46bc-99de-1d4e5a06e4f4
-# ╠═f2a1ed2e-dae8-48c2-af98-d8c601c4af53
-# ╠═f66545bf-5ee1-4420-9745-cf547aaf510b
-# ╠═aa05781d-7868-4970-be8f-f4e0357a0ae5
-# ╠═f7ec4eb0-0d98-4d9b-b409-c2e716d88909
-# ╠═e9c41e35-af72-4c84-bcae-2e92845838eb
-# ╠═ca5cdbe1-03f6-4d07-8d9a-b6082a92ded7
-# ╠═398e47b1-faa1-4a12-a424-03be117bfc6c
-# ╠═357c3483-40f0-4ccc-a78a-924c1e93ec16
-# ╠═08875c82-11d6-4c59-8371-bdeba0be1d97
-# ╠═9a9f25aa-35b2-43ab-b75f-ec3caf8d32cb
-# ╠═e2da142b-5a79-41a7-ba23-7f914a947c9d
-# ╠═bee15227-b7c8-479e-bcc8-f9c50c4005a6
-# ╠═0db9e4d4-fcd3-4fba-bebf-1c8f392ac93f
-# ╠═32e3fb82-cceb-4c8b-ae7b-4a877b7201f8
-# ╠═173a968d-f12b-4275-9c40-139c486fca09
-# ╠═657c7d5a-48d0-4d29-b83f-0f3d779f9549
-# ╠═57468719-55f1-42c4-ad61-c60923fff333
-# ╠═662ffab8-92fb-4938-bd94-4df004cc676d
-# ╠═c4a1717f-b8c8-46af-a30b-694a830ed731
-# ╠═80f5215a-d462-425a-95c9-ea5d3b1acd1b
-# ╠═bef6a46a-aa99-46ab-944e-e2ff986dbc16
-# ╠═b936ca7f-26bc-4143-bcde-8d1a475e50f8
-# ╠═32633c04-bdac-4751-a808-b408bbb2da84
-# ╠═5134aaac-d0f7-4bc6-bfd7-3daefc36e165
-# ╠═7a0d638e-f597-47a6-9aaa-85ed83c96b29
-# ╠═5554d9ae-1cf7-4af3-961e-37ce59ef4e78
-# ╟─22486499-721d-498a-87f5-a3b704ba56ba
+# ╠═969d74dc-4089-4212-9b75-99539c3223a9
+# ╠═98668528-1023-11ec-0a3b-adb3c035dd19
+# ╠═ca39ab6b-8510-4bdd-a9fd-069d5069de5b
+# ╠═d7e1c817-3477-4089-935a-b8344a7b0b76
+# ╠═34fdf436-b774-4480-a326-873a61b77bef
+# ╠═a2f625f2-a430-4d5a-84ce-910439da9b16
+# ╠═590d8fcf-02aa-4f09-8fd9-ccb2b195618c
+# ╠═b0781160-e24d-44e7-9a86-0513a53ecf94
+# ╠═c764363b-131d-4f83-a796-29654d55b491
+# ╠═55ac6c7f-8fd6-459a-bca9-7488d83b8a0f
+# ╠═840dc3f5-b0ab-4ada-bb0e-aaedeb2f4d6c
+# ╠═3ed67e98-2e47-4772-bf78-0319f00eae86
+# ╠═1fb4382b-ac66-49fe-a1e1-967cf4b203a8
+# ╠═0b3d1f59-bf90-4e9d-8aee-73d8192e2e59
+# ╠═fcbc4aff-639f-42ab-8df1-c30d10fb49bd
+# ╠═b9d62377-96b6-4f9a-be30-8f8b371a802b
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
