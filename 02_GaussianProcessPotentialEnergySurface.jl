@@ -41,6 +41,18 @@ This is designed as a 'base' Gaussian Process library for Julia providing primit
 PES(r)=r^2-1.4*r^4   #quadratic-quartic ; 'Mexican hat'
 #PES(r)=.2sin(2π*r)  #Sinusoidal
 
+# ╔═╡ cd37902a-3e42-499a-bc01-8b0766dafb05
+# Not working yet! Need to eval / parse the output correctly
+@bind PESascii PlutoUI.Radio([ 
+		"PES(x)=x^2" => "harmonic", 
+		"PES(r)=r^2-1.4*r^4" => "quadratic-quartic ; 'Mexican hat'", 
+		"PES(r)=r^6-r^12" => "Lennard-Jones potential"
+
+		])
+
+# ╔═╡ 31a49d20-f12e-466e-a049-d44fa8055a99
+@eval(Symbol(PESascii))
+
 # ╔═╡ a2ebdb8b-e753-4013-82cb-2491610243cb
 # Plot the potential energy surface we are attempting to model
 plot(-1:0.01:1, PES, label="Underlying potential", xlabel="Position", ylabel="Energy")
@@ -166,7 +178,7 @@ begin
 				Y = PES.(X)
 				fx = f(X, 0.001)
 				p_fx = posterior(fx, Y)	
-			scatter(X, Y; label="Data used in fit")
+			scatter(X, Y; label="$(length(X)) datapoints in fit")
 			
 		plot!(-1.0:0.001:1.0, p_fx; label="Posterior (Prediction)", ribbon_scale=3)
 	# ribbon_scale is the number of standard deviations to plot the ribbon at.
@@ -270,7 +282,7 @@ begin
 			
 			afx = f(aX, 0.001)
 			ap_fx = posterior(afx, aY)	
-			scatter(aX, aY; label="Data used in fit")
+			scatter(aX, aY; label="$(length(aX)) datapoints in fit")
 			
 		plot!(-1.0:0.001:1.0, ap_fx; label="Posterior (Prediction)", ribbon_scale=3)
 	# ribbon_scale is the number of standard deviations to plot the ribbon at.
@@ -290,17 +302,29 @@ end
 
 # ╔═╡ bef6a46a-aa99-46ab-944e-e2ff986dbc16
 md"""
-OK, well our method worked! 
-In a very data-poor environment (near the start of the above animation), this method tends to work very well. 
-But even in this trivial example, it stagnates very quickly, and starts to repeatedly select sequential regions of the phase-space (here the phase space is just the X coordinate).
+OK, our method worked! Technically we would describe this as chosing points with the highest estimated posterior variance. 
+In a data-poor environment (near the start of the above animation), this method tends to work very well. 
+But even in this trivial example, it stagnates quickly, and starts to repeatedly select sequential regions of the phase-space (here the phase space is just the X coordinate).
 
->See § 9.7 in Rasmussen and Williams, and as referenced therein:
+There have been a number of improved strategies developed for choosing new data points. 
+The obvious improvement to what we did here would be to select points that reduce the *average* variance over the region of interest.
+
+>See § 9.7 in Rasmussen and Williams for a brief general description, and as referenced therein:
 >
 >Jones, D.R. A Taxonomy of Global Optimization Methods Based on Response Surfaces. _Journal of Global Optimization_ **21**, 345–383 (2001). [https://doi.org/10.1023/A:1012771025575](https://doi.org/10.1023/A:1012771025575)
+>
+>Elena Uteva, Richard S. Graham, Richard D. Wilkinson, and Richard J. Wheatley , "Active learning in Gaussian process interpolation of potential energy surfaces", The Journal of Chemical Physics 149, 174114 (2018) https://doi.org/10.1063/1.5051772
 
 The most common application of this technique is in Bayesian optimisation; where you are using the surrogate function (in this case our Gaussian Process) to accelerate the finding of an extremal point in the underlying distribution. 
 
+
 """
+
+# ╔═╡ b936ca7f-26bc-4143-bcde-8d1a475e50f8
+
+
+# ╔═╡ 32633c04-bdac-4751-a808-b408bbb2da84
+
 
 # ╔═╡ 5134aaac-d0f7-4bc6-bfd7-3daefc36e165
 
@@ -1271,6 +1295,8 @@ version = "0.9.1+5"
 # ╠═d7f1568f-9194-4d3e-85ae-a9e77df70a3c
 # ╠═79ee1da0-3baf-41b8-aadc-d9cb57ec9c84
 # ╠═1354b2ab-ae3c-43a3-8f78-95833294fb7c
+# ╠═cd37902a-3e42-499a-bc01-8b0766dafb05
+# ╠═31a49d20-f12e-466e-a049-d44fa8055a99
 # ╠═a2ebdb8b-e753-4013-82cb-2491610243cb
 # ╠═f0690f26-5190-4848-aae7-a744129aa7db
 # ╟─48be20c7-2a76-4f34-b4bc-f53ff2b88cc2
@@ -1312,6 +1338,8 @@ version = "0.9.1+5"
 # ╠═c4a1717f-b8c8-46af-a30b-694a830ed731
 # ╠═80f5215a-d462-425a-95c9-ea5d3b1acd1b
 # ╠═bef6a46a-aa99-46ab-944e-e2ff986dbc16
+# ╠═b936ca7f-26bc-4143-bcde-8d1a475e50f8
+# ╠═32633c04-bdac-4751-a808-b408bbb2da84
 # ╠═5134aaac-d0f7-4bc6-bfd7-3daefc36e165
 # ╠═7a0d638e-f597-47a6-9aaa-85ed83c96b29
 # ╠═5554d9ae-1cf7-4af3-961e-37ce59ef4e78
