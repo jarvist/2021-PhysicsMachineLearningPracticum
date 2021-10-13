@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.16.0
+# v0.16.1
 
 using Markdown
 using InteractiveUtils
@@ -51,6 +51,9 @@ function ising2d_ifelse!(s, β, niters, rng=default_rng())
     end
 end
 
+# ╔═╡ f71adc97-5bfa-4bdc-a61e-0caa8cd4dcfe
+@benchmark ising2d_ifelse!(s, β_crit, 10^2, rng)
+
 # ╔═╡ b0781160-e24d-44e7-9a86-0513a53ecf94
 function ising2d_modulo!(s, β, niters, rng=default_rng())
     m, n = size(s)
@@ -72,27 +75,24 @@ function ising2d_modulo!(s, β, niters, rng=default_rng())
     end
 end
 
-# ╔═╡ c764363b-131d-4f83-a796-29654d55b491
-PlutoUI.with_terminal() do	    
-	@time ising2d_ifelse!(s, β_crit, 10^4, rng)
-	@time ising2d_modulo!(s, β_crit, 10^4, rng)
-end
+# ╔═╡ b44c5297-085d-41be-b2c9-bedc85773bec
+@benchmark ising2d_modulo!(s, β_crit, 10^2, rng)
 
 # ╔═╡ 55ac6c7f-8fd6-459a-bca9-7488d83b8a0f
 # Benchmark some of the fastest extra pseudo-Random-Number-Generators (RNGs) provided by 
 # https://juliarandom.github.io/RandomNumbers.jl/stable/man/benchmark/
-PlutoUI.with_terminal() do
-		for myrng in [RandomNumbers.Xorshifts.Xoroshiro128Plus(4649) , RandomNumbers.Xorshifts.Xoroshiro128Star(4649), Random.default_rng()]
-			print(myrng, "  ")
+let
+for myrng in [RandomNumbers.Xorshifts.Xoroshiro128Plus(4649) , RandomNumbers.Xorshifts.Xoroshiro128Star(4649), Random.default_rng()]
 		
-		    @time ising2d_ifelse!(s, β_crit, 10^4, myrng)
-		end
+	@benchmark ising2d_ifelse!(s, β_crit, 10^2, $myrng)
+end
 end
 
+# ╔═╡ 9cd4d3aa-ed8f-45e5-a039-93411c0b08d2
+ising2d_ifelse!(s, β_crit, 10^2, rng)
+
 # ╔═╡ 840dc3f5-b0ab-4ada-bb0e-aaedeb2f4d6c
-PlutoUI.with_terminal() do
-	@btime ising2d_ifelse!(s, β_crit, 10^3, rng)
-end
+@benchmark ising2d_ifelse!(s, β_crit, 10^2, rng)
 
 # ╔═╡ 3ed67e98-2e47-4772-bf78-0319f00eae86
 # 125 million updates / second
@@ -111,6 +111,29 @@ let
 	gif(a, fps=10)
 end
 
+# ╔═╡ f71bc8ba-62e5-48a7-94f7-aa6f30132c83
+# OK! Now that it works, let's wrap it all up in a function so we can experiment easier
+function Isinggif(;frames=100, sweeps=10, fps=10, β=β_crit, rng=rng, latticesize=100)
+	s=rand_ising2d(latticesize) # randomise lattice
+		a= @animate for f in 1:frames # iterate through frames
+		ising2d_ifelse!(s, β_crit, sweeps, rng) # run Ising MC simulation
+		heatmap(s; size=(400,400), axis=false, colorbar=false)
+	end
+	gif(a, fps=10)
+end
+
+# ╔═╡ be65a3d9-a75e-4689-af11-5629f934dbe7
+# Watching the lattice coarsen from the initial (infinite high temperature) state
+Isinggif(sweeps=10^0, frames=100, latticesize=400)
+
+# ╔═╡ ae44ce9d-14d6-4048-965b-9220719cf2cf
+# Let's zoom right in...
+Isinggif(sweeps=10^0, frames=100, latticesize=20)
+
+# ╔═╡ 4682a01e-6d90-4084-836e-5f6af76199ab
+# From our understanding of phase transitions, a low-temperature phase should end up as a feromagnet (spin aligned), so either all yellow or all black
+Isinggif(sweeps=10^2, frames=100, latticesize=20, β=β_crit/2)
+
 # ╔═╡ fcbc4aff-639f-42ab-8df1-c30d10fb49bd
 let
 	a= @animate for frames in 1:100
@@ -120,16 +143,10 @@ let
 	gif(a, fps=10)
 end
 
-# ╔═╡ b9d62377-96b6-4f9a-be30-8f8b371a802b
-let
-	s = rand_ising2d(500)
-	a= @animate for frames in 1:100
-		ising2d_ifelse!(s, β_crit, 10^3, rng)
-		heatmap(s; size=(500, 500), axis=false, colorbar=false)
-	end
-	gif(a, fps=10)
-end
-
+# ╔═╡ 00cd23a0-bd95-430b-b947-adb564e55342
+# This cell takes a long time to run! (150s on my office Xeon)
+# But the result is pretty, and you get some sense of the fractal chaos at the critical point
+Isinggif(sweeps=10^3, frames=100, latticesize=400)
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -982,14 +999,20 @@ version = "0.9.1+5"
 # ╠═34fdf436-b774-4480-a326-873a61b77bef
 # ╠═a2f625f2-a430-4d5a-84ce-910439da9b16
 # ╠═590d8fcf-02aa-4f09-8fd9-ccb2b195618c
+# ╠═f71adc97-5bfa-4bdc-a61e-0caa8cd4dcfe
 # ╠═b0781160-e24d-44e7-9a86-0513a53ecf94
-# ╠═c764363b-131d-4f83-a796-29654d55b491
+# ╠═b44c5297-085d-41be-b2c9-bedc85773bec
 # ╠═55ac6c7f-8fd6-459a-bca9-7488d83b8a0f
+# ╠═9cd4d3aa-ed8f-45e5-a039-93411c0b08d2
 # ╠═840dc3f5-b0ab-4ada-bb0e-aaedeb2f4d6c
 # ╠═3ed67e98-2e47-4772-bf78-0319f00eae86
 # ╠═1fb4382b-ac66-49fe-a1e1-967cf4b203a8
 # ╠═0b3d1f59-bf90-4e9d-8aee-73d8192e2e59
+# ╠═f71bc8ba-62e5-48a7-94f7-aa6f30132c83
+# ╠═be65a3d9-a75e-4689-af11-5629f934dbe7
+# ╠═ae44ce9d-14d6-4048-965b-9220719cf2cf
+# ╠═4682a01e-6d90-4084-836e-5f6af76199ab
 # ╠═fcbc4aff-639f-42ab-8df1-c30d10fb49bd
-# ╠═b9d62377-96b6-4f9a-be30-8f8b371a802b
+# ╠═00cd23a0-bd95-430b-b947-adb564e55342
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
