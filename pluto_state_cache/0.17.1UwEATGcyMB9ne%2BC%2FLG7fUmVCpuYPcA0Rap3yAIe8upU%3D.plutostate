@@ -1,0 +1,112 @@
+¥bonds€¬cell_resultsŠÙ$95ef9860-0644-11ec-27d4-57fae0e8614cˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ’<div class="markdown"><h1>2021 MRes in Machine Learning and Big Data in the Physical Sciences</h1>
+<h3>Jarvist Moore Frost - Practicum</h3>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,Lâ	¬rootassigneeÀ§cell_idÙ$95ef9860-0644-11ec-27d4-57fae0e8614c¹depends_on_disabled_cellsÂ§runtimeÍx§erroredÂÙ$994b9710-fe61-4fe4-aaa1-5a6263c76904ˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚô<div class="markdown"><h3>Pluto.jl</h3>
+<p><a href="https://github.com/fonsp/Pluto.jl">Pluto.jl</a> is a reactive computational notebook, which specifically works with Julia. This webpage is actually a Pluto notebook. This is conceptually similar to a Mathematica workbook or a Jupyter notebook. </p>
+<p>Jupyter notebooks have become dominant in data science and machine learning but they have two drawbacks: they posess internal state &#40;so you can e.g. accidentally delete or corrupt a key part of an analysis and not notice until you try and re-run days or years later&#41;, and are not directly runnable as Python, Julia or R scripts &#40;so you often end up developing a prototype in a notebook, then copy &#43; pasting code elsewhere&#41;. Pluto avoids these problems by consistently re-running any dependent calculations when changes are made &#40;this is what &#39;reactive&#39; means&#41;. This also means you can have cells in any order. The save format of the notebook is a plain Julia text file, with the cells re-ordered so that the computation progresses from top to bottom. </p>
+<p>There is an informative &#40;and fun&#33; many animated gifs&#41; <a href="https://www.youtube.com/watch?v&#61;7jiPeIFXb6U">talk about the dangers of Jupyter-style notebooks by Joel Grus at the 2018 Jupytercon</a>. &#40;If you are going to use Jupyter notebooks in your future work, a strong recommendation is to not execute cells out of order, and regularly &#39;restart kernel and run all cells&#39;&#33;&#41;</p>
+<p>As Pluto only operates with Julia, it takes advantage of the modern dependency and package infrastructure to make runs entirely reproducible. Libraries can be managed by Pluto itself, with the specific version &#40;down to the git sha&#41; registered. </p>
+<p>The <a href="https://www.youtube.com/watch?v&#61;IAF8DjrQSSk">Pluto talk at the 2020 Juliacon</a> and the <a href="https://www.youtube.com/watch?v&#61;HiI4jgDyDhY">Pluto talk at the 2021 Juliacon</a> are a very good introduction to the technology.</p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,M"!¬rootassigneeÀ§cell_idÙ$994b9710-fe61-4fe4-aaa1-5a6263c76904¹depends_on_disabled_cellsÂ§runtimeÍˆT§erroredÂÙ$b56c0674-74a7-484a-b69c-ee27b2574f02ˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ#<div class="markdown"><h3>The Julia programming language</h3>
+<p>The Julia programming language grew out of a research project at MIT to write a general purpose language, but with particular strength in scientific computing. They wanted to avoid the &#39;two language&#39; problem, where initial prototypes were written in higher level languages such as Matlab or Python, but then had to be extensively rewritten in a lower level language such as C or Fortran to achieve the necessary performance for working on production datasets. </p>
+<p>This is achieved by having a very strong type system, and using multiple dispatch and just-in-time &#40;JIT&#41; compiling to build specialised versions of the functions being executed. Julia code can be very fast indeed, but another property is that it can be iteratively improved to make it faster. This speed improvement comes from expert knowledge and understanding of how the language and computer hardware operates, but the language is highly inspective &#40;you can ask it what&#39;s going on&#41;, and is easy to collaborate on. </p>
+<p>An emergent property of the language is that code is highly composable. By writing a few extra types and providing specialised functions for your new types, you can often use other people&#39;s code and libraries for something they had never intended. </p>
+<p>As the language is fairly new &#40;first release 2012&#41;, it uses modern software engineering practises, and contains a built in &#40;and first class&#41; package manager. </p>
+<p>Explore some features of Julia in the <a href="0_IntroToJulia.html">00_IntroToJulia.jl</a> notebook.</p>
+<p>The <a href="https://julialang.org/blog/2012/02/why-we-created-julia/">2012 blog post</a> from the first public release explains much of the initial motivation behind the project. </p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,M	ú¬rootassigneeÀ§cell_idÙ$b56c0674-74a7-484a-b69c-ee27b2574f02¹depends_on_disabled_cellsÂ§runtimeÍ/D§erroredÂÙ$a0436b6b-ac8d-469a-8f1e-0799ab2e8c0bˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙø<div class="markdown"><h2>Â§ 2 - Gaussian processes</h2>
+<h3>Modelling potential energy surfaces in physical matter</h3>
+<p>Notebook: <a href="02_GaussianProcessPotentialEnergySurface.html">02_GaussianProcessPotentialEnergySurface.jl</a></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,MA_¬rootassigneeÀ§cell_idÙ$a0436b6b-ac8d-469a-8f1e-0799ab2e8c0b¹depends_on_disabled_cellsÂ§runtimeÍ§erroredÂÙ$1eac8a7b-bf29-400b-b776-af03efa62c7eˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ<div class="markdown"><h2>Â§ 4 - Statistical mechanics</h2>
+<h3>A 2D Ising model</h3>
+<p><a href="04_IsingModel.jl">04_IsingModel.jl</a></p>
+<h3>Phase transitions by confusion</h3>
+<p><a href="04_PhaseTransitionsByConfusion.jl">04_PhaseTransitionsByConfusion.jl</a></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,Mew¬rootassigneeÀ§cell_idÙ$1eac8a7b-bf29-400b-b776-af03efa62c7e¹depends_on_disabled_cellsÂ§runtimeÍ%€§erroredÂÙ$d16d57b0-7aac-466c-99fa-14387cdaa007ˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ@<div class="markdown"><h2>Â§ 1 - Computational &amp; physical introduction</h2>
+<h3>Introduction to Julia</h3>
+<p>Notebook: <a href="00_IntroToJulia.html">00_IntroToJulia.jl</a></p>
+<h3>Computational statistical mechanics</h3>
+<h3>The partition function</h3>
+<h3>Maximum entropy learning: Boltzmann inversion</h3>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,M2]¬rootassigneeÀ§cell_idÙ$d16d57b0-7aac-466c-99fa-14387cdaa007¹depends_on_disabled_cellsÂ§runtimeÍ%ä§erroredÂÙ$24477c10-2e69-4e77-bba0-436b3479dd93ˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚd<div class="markdown"><h2>Â§ 3 - An introduction to neural networks</h2>
+<h3>Setting weights by hand</h3>
+<p>Notebook: <a href="03_SingleNeuronFromScratch.html">03_SingleNeuronFromScratch.jl</a></p>
+<h3>Automatic differentiation &#40;AD&#41;</h3>
+<p>Notebook: <a href="03_IntroToAutoDiff.html">03_IntroToAutoDiff.jl</a></p>
+<h3>Back propagation</h3>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,MTÚ¬rootassigneeÀ§cell_idÙ$24477c10-2e69-4e77-bba0-436b3479dd93¹depends_on_disabled_cellsÂ§runtimeÍ/¨§erroredÂÙ$d68aaf0b-672d-4241-b639-9ed697a7feb2ˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ8<button onclick='present()'>Toggle present mode</button>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,M}‘¬rootassigneeÀ§cell_idÙ$d68aaf0b-672d-4241-b639-9ed697a7feb2¹depends_on_disabled_cellsÂ§runtimeÍü§erroredÂÙ$74e091b2-3c14-4353-8506-5342b9d18aeaˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙv<div class="markdown"><h2>Â§ 5 - Graph convolutional neural networks</h2>
+<h3>Molecules as an atomic graph</h3>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,Mr*¬rootassigneeÀ§cell_idÙ$74e091b2-3c14-4353-8506-5342b9d18aea¹depends_on_disabled_cellsÂ§runtimeÍø§erroredÂÙ$38061db4-9741-44c0-b4bc-4532d8ceea01ˆ¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ(<div class="markdown"><h2>Â§ 0 - Technical stack</h2>
+<p>We will use the Julia programming language, and the Pluto reactive notebook in this part of the practicum.  This <a href="https://www.youtube.com/watch?v&#61;OOjKEgbt8AI">7 minute video</a> explains how to install them locally. </p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØbÂ,Lñ¬rootassigneeÀ§cell_idÙ$38061db4-9741-44c0-b4bc-4532d8ceea01¹depends_on_disabled_cellsÂ§runtimeÍ#Œ§erroredÂ±cell_dependenciesŠÙ$95ef9860-0644-11ec-27d4-57fae0e8614c„´precedence_heuristic	§cell_idÙ$95ef9860-0644-11ec-27d4-57fae0e8614c´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$994b9710-fe61-4fe4-aaa1-5a6263c76904„´precedence_heuristic	§cell_idÙ$994b9710-fe61-4fe4-aaa1-5a6263c76904´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$b56c0674-74a7-484a-b69c-ee27b2574f02„´precedence_heuristic	§cell_idÙ$b56c0674-74a7-484a-b69c-ee27b2574f02´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$a0436b6b-ac8d-469a-8f1e-0799ab2e8c0b„´precedence_heuristic	§cell_idÙ$a0436b6b-ac8d-469a-8f1e-0799ab2e8c0b´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$1eac8a7b-bf29-400b-b776-af03efa62c7e„´precedence_heuristic	§cell_idÙ$1eac8a7b-bf29-400b-b776-af03efa62c7e´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$d16d57b0-7aac-466c-99fa-14387cdaa007„´precedence_heuristic	§cell_idÙ$d16d57b0-7aac-466c-99fa-14387cdaa007´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$24477c10-2e69-4e77-bba0-436b3479dd93„´precedence_heuristic	§cell_idÙ$24477c10-2e69-4e77-bba0-436b3479dd93´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$d68aaf0b-672d-4241-b639-9ed697a7feb2„´precedence_heuristic	§cell_idÙ$d68aaf0b-672d-4241-b639-9ed697a7feb2´downstream_cells_map€²upstream_cells_map©@html_strÙ$74e091b2-3c14-4353-8506-5342b9d18aea„´precedence_heuristic	§cell_idÙ$74e091b2-3c14-4353-8506-5342b9d18aea´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$38061db4-9741-44c0-b4bc-4532d8ceea01„´precedence_heuristic	§cell_idÙ$38061db4-9741-44c0-b4bc-4532d8ceea01´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindex´cell_execution_orderšÙ$95ef9860-0644-11ec-27d4-57fae0e8614cÙ$38061db4-9741-44c0-b4bc-4532d8ceea01Ù$b56c0674-74a7-484a-b69c-ee27b2574f02Ù$994b9710-fe61-4fe4-aaa1-5a6263c76904Ù$d16d57b0-7aac-466c-99fa-14387cdaa007Ù$a0436b6b-ac8d-469a-8f1e-0799ab2e8c0bÙ$24477c10-2e69-4e77-bba0-436b3479dd93Ù$1eac8a7b-bf29-400b-b776-af03efa62c7eÙ$74e091b2-3c14-4353-8506-5342b9d18aeaÙ$d68aaf0b-672d-4241-b639-9ed697a7feb2´last_hot_reload_timeË        ©shortpath®00_overview.jl®process_status¨starting¤pathÙj/home/runner/work/2021-PhysicsMachineLearningPracticum/2021-PhysicsMachineLearningPracticum/00_overview.jl®last_save_timeËAØbÂ,E
+9ªcell_orderšÙ$95ef9860-0644-11ec-27d4-57fae0e8614cÙ$38061db4-9741-44c0-b4bc-4532d8ceea01Ù$b56c0674-74a7-484a-b69c-ee27b2574f02Ù$994b9710-fe61-4fe4-aaa1-5a6263c76904Ù$d16d57b0-7aac-466c-99fa-14387cdaa007Ù$a0436b6b-ac8d-469a-8f1e-0799ab2e8c0bÙ$24477c10-2e69-4e77-bba0-436b3479dd93Ù$1eac8a7b-bf29-400b-b776-af03efa62c7eÙ$74e091b2-3c14-4353-8506-5342b9d18aeaÙ$d68aaf0b-672d-4241-b639-9ed697a7feb2¥nbpkg‡²installed_versions€°terminal_outputs€§enabledÃ·restart_recommended_msgÀ´restart_required_msgÀ­busy_packages¬instantiatedÃ«cell_inputsŠÙ$95ef9860-0644-11ec-27d4-57fae0e8614c„§cell_idÙ$95ef9860-0644-11ec-27d4-57fae0e8614c°running_disabledÂ¤codeÙsmd"""
+# 2021 MRes in Machine Learning and Big Data in the Physical Sciences
+### Jarvist Moore Frost - Practicum
+"""«code_foldedÃÙ$994b9710-fe61-4fe4-aaa1-5a6263c76904„§cell_idÙ$994b9710-fe61-4fe4-aaa1-5a6263c76904°running_disabledÂ¤codeÚ:md"""
+### Pluto.jl
+
+[Pluto.jl](https://github.com/fonsp/Pluto.jl) is a reactive computational notebook, which specifically works with Julia. This webpage is actually a Pluto notebook. This is conceptually similar to a Mathematica workbook or a Jupyter notebook. 
+
+Jupyter notebooks have become dominant in data science and machine learning but they have two drawbacks: they posess internal state (so you can e.g. accidentally delete or corrupt a key part of an analysis and not notice until you try and re-run days or years later), and are not directly runnable as Python, Julia or R scripts (so you often end up developing a prototype in a notebook, then copy + pasting code elsewhere). Pluto avoids these problems by consistently re-running any dependent calculations when changes are made (this is what 'reactive' means). This also means you can have cells in any order. The save format of the notebook is a plain Julia text file, with the cells re-ordered so that the computation progresses from top to bottom. 
+
+There is an informative (and fun! many animated gifs) [talk about the dangers of Jupyter-style notebooks by Joel Grus at the 2018 Jupytercon](https://www.youtube.com/watch?v=7jiPeIFXb6U). (If you are going to use Jupyter notebooks in your future work, a strong recommendation is to not execute cells out of order, and regularly 'restart kernel and run all cells'!)
+
+As Pluto only operates with Julia, it takes advantage of the modern dependency and package infrastructure to make runs entirely reproducible. Libraries can be managed by Pluto itself, with the specific version (down to the git sha) registered. 
+
+The [Pluto talk at the 2020 Juliacon](https://www.youtube.com/watch?v=IAF8DjrQSSk) and the [Pluto talk at the 2021 Juliacon](https://www.youtube.com/watch?v=HiI4jgDyDhY) are a very good introduction to the technology.
+"""«code_foldedÃÙ$b56c0674-74a7-484a-b69c-ee27b2574f02„§cell_idÙ$b56c0674-74a7-484a-b69c-ee27b2574f02°running_disabledÂ¤codeÚ¡md"""
+### The Julia programming language
+
+The Julia programming language grew out of a research project at MIT to write a general purpose language, but with particular strength in scientific computing. They wanted to avoid the 'two language' problem, where initial prototypes were written in higher level languages such as Matlab or Python, but then had to be extensively rewritten in a lower level language such as C or Fortran to achieve the necessary performance for working on production datasets. 
+
+This is achieved by having a very strong type system, and using multiple dispatch and just-in-time (JIT) compiling to build specialised versions of the functions being executed. Julia code can be very fast indeed, but another property is that it can be iteratively improved to make it faster. This speed improvement comes from expert knowledge and understanding of how the language and computer hardware operates, but the language is highly inspective (you can ask it what's going on), and is easy to collaborate on. 
+
+An emergent property of the language is that code is highly composable. By writing a few extra types and providing specialised functions for your new types, you can often use other people's code and libraries for something they had never intended. 
+
+As the language is fairly new (first release 2012), it uses modern software engineering practises, and contains a built in (and first class) package manager. 
+
+Explore some features of Julia in the [00_IntroToJulia.jl](0_IntroToJulia.html) notebook.
+
+The [2012 blog post](https://julialang.org/blog/2012/02/why-we-created-julia/) from the first public release explains much of the initial motivation behind the project. 
+"""«code_foldedÃÙ$a0436b6b-ac8d-469a-8f1e-0799ab2e8c0b„§cell_idÙ$a0436b6b-ac8d-469a-8f1e-0799ab2e8c0b°running_disabledÂ¤codeÙÉmd"""
+## Â§ 2 - Gaussian processes
+### Modelling potential energy surfaces in physical matter
+
+Notebook: [02_GaussianProcessPotentialEnergySurface.jl](02_GaussianProcessPotentialEnergySurface.html)
+"""«code_foldedÃÙ$1eac8a7b-bf29-400b-b776-af03efa62c7e„§cell_idÙ$1eac8a7b-bf29-400b-b776-af03efa62c7e°running_disabledÂ¤codeÙĞmd"""
+## Â§ 4 - Statistical mechanics
+### A 2D Ising model
+
+[04_IsingModel.jl](04_IsingModel.jl)
+
+### Phase transitions by confusion
+
+[04_PhaseTransitionsByConfusion.jl](04_PhaseTransitionsByConfusion.jl)
+"""«code_foldedÂÙ$d16d57b0-7aac-466c-99fa-14387cdaa007„§cell_idÙ$d16d57b0-7aac-466c-99fa-14387cdaa007°running_disabledÂ¤codeÙÿmd"""
+## Â§ 1 - Computational & physical introduction
+### Introduction to Julia
+
+Notebook: [00_IntroToJulia.jl](00_IntroToJulia.html)
+
+### Computational statistical mechanics
+### The partition function
+### Maximum entropy learning: Boltzmann inversion
+"""«code_foldedÃÙ$24477c10-2e69-4e77-bba0-436b3479dd93„§cell_idÙ$24477c10-2e69-4e77-bba0-436b3479dd93°running_disabledÂ¤codeÚmd"""
+## Â§ 3 - An introduction to neural networks
+### Setting weights by hand
+
+Notebook: [03_SingleNeuronFromScratch.jl](03_SingleNeuronFromScratch.html)
+
+### Automatic differentiation (AD)
+
+Notebook: [03_IntroToAutoDiff.jl](03_IntroToAutoDiff.html)
+
+### Back propagation
+"""«code_foldedÂÙ$d68aaf0b-672d-4241-b639-9ed697a7feb2„§cell_idÙ$d68aaf0b-672d-4241-b639-9ed697a7feb2°running_disabledÂ¤codeÙ>html"<button onclick='present()'>Toggle present mode</button>"«code_foldedÂÙ$74e091b2-3c14-4353-8506-5342b9d18aea„§cell_idÙ$74e091b2-3c14-4353-8506-5342b9d18aea°running_disabledÂ¤codeÙXmd"""
+## Â§ 5 - Graph convolutional neural networks
+### Molecules as an atomic graph
+"""«code_foldedÃÙ$38061db4-9741-44c0-b4bc-4532d8ceea01„§cell_idÙ$38061db4-9741-44c0-b4bc-4532d8ceea01°running_disabledÂ¤codeÙúmd"""
+## Â§ 0 - Technical stack
+
+We will use the Julia programming language, and the Pluto reactive notebook in this part of the practicum. 
+This [7 minute video](https://www.youtube.com/watch?v=OOjKEgbt8AI) explains how to install them locally. 
+"""«code_foldedÃ«notebook_idÙ$7941525c-41b7-11ec-2502-938daadf83cc«in_temp_dirÂ
