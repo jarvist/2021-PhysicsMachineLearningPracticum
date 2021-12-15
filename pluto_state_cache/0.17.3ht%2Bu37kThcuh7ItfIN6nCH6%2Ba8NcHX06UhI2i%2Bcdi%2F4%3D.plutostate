@@ -1,0 +1,351 @@
+��bonds��cell_results��$daed3792-08a2-48b2-b044-3555fc6b1351��queued§running¦output��body�76�persist_js_state¤mime�text/plain�last_run_timestamp�A�nl��i�has_pluto_hook_features¬rootassignee��cell_id�$daed3792-08a2-48b2-b044-3555fc6b1351�depends_on_disabled_cells§runtime�/��published_object_keys��errored��$c73eb801-5e60-4f23-a267-a1cc80f127a0��queued§running¦output��body�V�<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 2400 1600">
+<defs>
+  <clipPath id="clip980">
+    <rect x="0" y="0" width="2400" height="1600"/>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip980)" d="
+M0 1600 L2400 1600 L2400 0 L0 0  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip981">
+    <rect x="480" y="0" width="1681" height="1600"/>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip980)" d="
+M209.029 1486.45 L2352.76 1486.45 L2352.76 47.2441 L209.029 47.2441  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip982">
+    <rect x="209" y="47" width="2145" height="1440"/>
+  </clipPath>
+</defs>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  471.938,1486.45 471.938,47.2441 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  876.415,1486.45 876.415,47.2441 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1280.89,1486.45 1280.89,47.2441 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1685.37,1486.45 1685.37,47.2441 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2089.85,1486.45 2089.85,47.2441 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  209.029,1486.45 2352.76,1486.45 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  471.938,1486.45 471.938,1467.55 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  876.415,1486.45 876.415,1467.55 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1280.89,1486.45 1280.89,1467.55 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1685.37,1486.45 1685.37,1467.55 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2089.85,1486.45 2089.85,1467.55 
+  "/>
+<path clip-path="url(#clip980)" d="M440.839 1530.29 L470.515 1530.29 L470.515 1534.23 L440.839 1534.23 L440.839 1530.29 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M493.455 1516.63 L481.649 1535.08 L493.455 1535.08 L493.455 1516.63 M492.228 1512.56 L498.107 1512.56 L498.107 1535.08 L503.038 1535.08 L503.038 1538.97 L498.107 1538.97 L498.107 1547.12 L493.455 1547.12 L493.455 1538.97 L477.853 1538.97 L477.853 1534.46 L492.228 1512.56 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M846.358 1530.29 L876.033 1530.29 L876.033 1534.23 L846.358 1534.23 L846.358 1530.29 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M890.154 1543.18 L906.473 1543.18 L906.473 1547.12 L884.529 1547.12 L884.529 1543.18 Q887.191 1540.43 891.774 1535.8 Q896.381 1531.15 897.561 1529.81 Q899.806 1527.28 900.686 1525.55 Q901.589 1523.79 901.589 1522.1 Q901.589 1519.34 899.644 1517.61 Q897.723 1515.87 894.621 1515.87 Q892.422 1515.87 889.969 1516.63 Q887.538 1517.4 884.76 1518.95 L884.76 1514.23 Q887.584 1513.09 890.038 1512.51 Q892.492 1511.93 894.529 1511.93 Q899.899 1511.93 903.093 1514.62 Q906.288 1517.31 906.288 1521.8 Q906.288 1523.93 905.478 1525.85 Q904.691 1527.74 902.584 1530.34 Q902.005 1531.01 898.904 1534.23 Q895.802 1537.42 890.154 1543.18 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M1280.89 1515.64 Q1277.28 1515.64 1275.45 1519.2 Q1273.65 1522.75 1273.65 1529.87 Q1273.65 1536.98 1275.45 1540.55 Q1277.28 1544.09 1280.89 1544.09 Q1284.53 1544.09 1286.33 1540.55 Q1288.16 1536.98 1288.16 1529.87 Q1288.16 1522.75 1286.33 1519.2 Q1284.53 1515.64 1280.89 1515.64 M1280.89 1511.93 Q1286.7 1511.93 1289.76 1516.54 Q1292.84 1521.12 1292.84 1529.87 Q1292.84 1538.6 1289.76 1543.21 Q1286.7 1547.79 1280.89 1547.79 Q1275.08 1547.79 1272 1543.21 Q1268.95 1538.6 1268.95 1529.87 Q1268.95 1521.12 1272 1516.54 Q1275.08 1511.93 1280.89 1511.93 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M1680.02 1543.18 L1696.34 1543.18 L1696.34 1547.12 L1674.4 1547.12 L1674.4 1543.18 Q1677.06 1540.43 1681.64 1535.8 Q1686.25 1531.15 1687.43 1529.81 Q1689.67 1527.28 1690.55 1525.55 Q1691.46 1523.79 1691.46 1522.1 Q1691.46 1519.34 1689.51 1517.61 Q1687.59 1515.87 1684.49 1515.87 Q1682.29 1515.87 1679.84 1516.63 Q1677.41 1517.4 1674.63 1518.95 L1674.63 1514.23 Q1677.45 1513.09 1679.91 1512.51 Q1682.36 1511.93 1684.4 1511.93 Q1689.77 1511.93 1692.96 1514.62 Q1696.16 1517.31 1696.16 1521.8 Q1696.16 1523.93 1695.35 1525.85 Q1694.56 1527.74 1692.45 1530.34 Q1691.87 1531.01 1688.77 1534.23 Q1685.67 1537.42 1680.02 1543.18 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M2092.86 1516.63 L2081.05 1535.08 L2092.86 1535.08 L2092.86 1516.63 M2091.63 1512.56 L2097.51 1512.56 L2097.51 1535.08 L2102.44 1535.08 L2102.44 1538.97 L2097.51 1538.97 L2097.51 1547.12 L2092.86 1547.12 L2092.86 1538.97 L2077.25 1538.97 L2077.25 1534.46 L2091.63 1512.56 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  209.029,1324.58 2352.76,1324.58 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  209.029,1072.21 2352.76,1072.21 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  209.029,819.843 2352.76,819.843 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  209.029,567.475 2352.76,567.475 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  209.029,315.107 2352.76,315.107 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  209.029,62.7395 2352.76,62.7395 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  209.029,1486.45 209.029,47.2441 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  209.029,1324.58 227.926,1324.58 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  209.029,1072.21 227.926,1072.21 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  209.029,819.843 227.926,819.843 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  209.029,567.475 227.926,567.475 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  209.029,315.107 227.926,315.107 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  209.029,62.7395 227.926,62.7395 
+  "/>
+<path clip-path="url(#clip980)" d="M50.9921 1325.03 L80.6679 1325.03 L80.6679 1328.97 L50.9921 1328.97 L50.9921 1325.03 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M91.5706 1337.92 L99.2095 1337.92 L99.2095 1311.56 L90.8993 1313.22 L90.8993 1308.97 L99.1632 1307.3 L103.839 1307.3 L103.839 1337.92 L111.478 1337.92 L111.478 1341.86 L91.5706 1341.86 L91.5706 1337.92 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M120.969 1307.3 L139.325 1307.3 L139.325 1311.23 L125.251 1311.23 L125.251 1319.71 Q126.27 1319.36 127.288 1319.2 Q128.307 1319.01 129.325 1319.01 Q135.112 1319.01 138.492 1322.18 Q141.871 1325.35 141.871 1330.77 Q141.871 1336.35 138.399 1339.45 Q134.927 1342.53 128.607 1342.53 Q126.432 1342.53 124.163 1342.16 Q121.918 1341.79 119.51 1341.05 L119.51 1336.35 Q121.594 1337.48 123.816 1338.04 Q126.038 1338.6 128.515 1338.6 Q132.519 1338.6 134.857 1336.49 Q137.195 1334.38 137.195 1330.77 Q137.195 1327.16 134.857 1325.05 Q132.519 1322.95 128.515 1322.95 Q126.64 1322.95 124.765 1323.36 Q122.913 1323.78 120.969 1324.66 L120.969 1307.3 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M161.084 1310.38 Q157.473 1310.38 155.644 1313.94 Q153.839 1317.48 153.839 1324.61 Q153.839 1331.72 155.644 1335.29 Q157.473 1338.83 161.084 1338.83 Q164.718 1338.83 166.524 1335.29 Q168.353 1331.72 168.353 1324.61 Q168.353 1317.48 166.524 1313.94 Q164.718 1310.38 161.084 1310.38 M161.084 1306.67 Q166.894 1306.67 169.95 1311.28 Q173.029 1315.86 173.029 1324.61 Q173.029 1333.34 169.95 1337.95 Q166.894 1342.53 161.084 1342.53 Q155.274 1342.53 152.195 1337.95 Q149.14 1333.34 149.14 1324.61 Q149.14 1315.86 152.195 1311.28 Q155.274 1306.67 161.084 1306.67 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M50.9921 1072.66 L80.6679 1072.66 L80.6679 1076.6 L50.9921 1076.6 L50.9921 1072.66 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M91.5706 1085.56 L99.2095 1085.56 L99.2095 1059.19 L90.8993 1060.86 L90.8993 1056.6 L99.1632 1054.93 L103.839 1054.93 L103.839 1085.56 L111.478 1085.56 L111.478 1089.49 L91.5706 1089.49 L91.5706 1085.56 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M130.922 1058.01 Q127.311 1058.01 125.482 1061.57 Q123.677 1065.12 123.677 1072.25 Q123.677 1079.35 125.482 1082.92 Q127.311 1086.46 130.922 1086.46 Q134.556 1086.46 136.362 1082.92 Q138.191 1079.35 138.191 1072.25 Q138.191 1065.12 136.362 1061.57 Q134.556 1058.01 130.922 1058.01 M130.922 1054.31 Q136.732 1054.31 139.788 1058.91 Q142.867 1063.5 142.867 1072.25 Q142.867 1080.97 139.788 1085.58 Q136.732 1090.16 130.922 1090.16 Q125.112 1090.16 122.033 1085.58 Q118.978 1080.97 118.978 1072.25 Q118.978 1063.5 122.033 1058.91 Q125.112 1054.31 130.922 1054.31 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M161.084 1058.01 Q157.473 1058.01 155.644 1061.57 Q153.839 1065.12 153.839 1072.25 Q153.839 1079.35 155.644 1082.92 Q157.473 1086.46 161.084 1086.46 Q164.718 1086.46 166.524 1082.92 Q168.353 1079.35 168.353 1072.25 Q168.353 1065.12 166.524 1061.57 Q164.718 1058.01 161.084 1058.01 M161.084 1054.31 Q166.894 1054.31 169.95 1058.91 Q173.029 1063.5 173.029 1072.25 Q173.029 1080.97 169.95 1085.58 Q166.894 1090.16 161.084 1090.16 Q155.274 1090.16 152.195 1085.58 Q149.14 1080.97 149.14 1072.25 Q149.14 1063.5 152.195 1058.91 Q155.274 1054.31 161.084 1054.31 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M81.154 820.295 L110.83 820.295 L110.83 824.23 L81.154 824.23 L81.154 820.295 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M120.969 802.563 L139.325 802.563 L139.325 806.498 L125.251 806.498 L125.251 814.971 Q126.27 814.623 127.288 814.461 Q128.307 814.276 129.325 814.276 Q135.112 814.276 138.492 817.447 Q141.871 820.619 141.871 826.035 Q141.871 831.614 138.399 834.716 Q134.927 837.795 128.607 837.795 Q126.432 837.795 124.163 837.424 Q121.918 837.054 119.51 836.313 L119.51 831.614 Q121.594 832.748 123.816 833.304 Q126.038 833.859 128.515 833.859 Q132.519 833.859 134.857 831.753 Q137.195 829.646 137.195 826.035 Q137.195 822.424 134.857 820.318 Q132.519 818.211 128.515 818.211 Q126.64 818.211 124.765 818.628 Q122.913 819.045 120.969 819.924 L120.969 802.563 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M161.084 805.642 Q157.473 805.642 155.644 809.207 Q153.839 812.748 153.839 819.878 Q153.839 826.984 155.644 830.549 Q157.473 834.091 161.084 834.091 Q164.718 834.091 166.524 830.549 Q168.353 826.984 168.353 819.878 Q168.353 812.748 166.524 809.207 Q164.718 805.642 161.084 805.642 M161.084 801.938 Q166.894 801.938 169.95 806.545 Q173.029 811.128 173.029 819.878 Q173.029 828.605 169.95 833.211 Q166.894 837.795 161.084 837.795 Q155.274 837.795 152.195 833.211 Q149.14 828.605 149.14 819.878 Q149.14 811.128 152.195 806.545 Q155.274 801.938 161.084 801.938 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M161.084 553.274 Q157.473 553.274 155.644 556.839 Q153.839 560.38 153.839 567.51 Q153.839 574.616 155.644 578.181 Q157.473 581.723 161.084 581.723 Q164.718 581.723 166.524 578.181 Q168.353 574.616 168.353 567.51 Q168.353 560.38 166.524 556.839 Q164.718 553.274 161.084 553.274 M161.084 549.57 Q166.894 549.57 169.95 554.177 Q173.029 558.76 173.029 567.51 Q173.029 576.237 169.95 580.843 Q166.894 585.427 161.084 585.427 Q155.274 585.427 152.195 580.843 Q149.14 576.237 149.14 567.51 Q149.14 558.76 152.195 554.177 Q155.274 549.57 161.084 549.57 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M120.969 297.827 L139.325 297.827 L139.325 301.763 L125.251 301.763 L125.251 310.235 Q126.27 309.888 127.288 309.725 Q128.307 309.54 129.325 309.54 Q135.112 309.54 138.492 312.712 Q141.871 315.883 141.871 321.3 Q141.871 326.878 138.399 329.98 Q134.927 333.059 128.607 333.059 Q126.432 333.059 124.163 332.688 Q121.918 332.318 119.51 331.577 L119.51 326.878 Q121.594 328.012 123.816 328.568 Q126.038 329.124 128.515 329.124 Q132.519 329.124 134.857 327.017 Q137.195 324.911 137.195 321.3 Q137.195 317.688 134.857 315.582 Q132.519 313.475 128.515 313.475 Q126.64 313.475 124.765 313.892 Q122.913 314.309 120.969 315.188 L120.969 297.827 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M161.084 300.906 Q157.473 300.906 155.644 304.471 Q153.839 308.013 153.839 315.142 Q153.839 322.249 155.644 325.813 Q157.473 329.355 161.084 329.355 Q164.718 329.355 166.524 325.813 Q168.353 322.249 168.353 315.142 Q168.353 308.013 166.524 304.471 Q164.718 300.906 161.084 300.906 M161.084 297.202 Q166.894 297.202 169.95 301.809 Q173.029 306.392 173.029 315.142 Q173.029 323.869 169.95 328.475 Q166.894 333.059 161.084 333.059 Q155.274 333.059 152.195 328.475 Q149.14 323.869 149.14 315.142 Q149.14 306.392 152.195 301.809 Q155.274 297.202 161.084 297.202 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M91.5706 76.0843 L99.2095 76.0843 L99.2095 49.7187 L90.8993 51.3854 L90.8993 47.1261 L99.1632 45.4595 L103.839 45.4595 L103.839 76.0843 L111.478 76.0843 L111.478 80.0195 L91.5706 80.0195 L91.5706 76.0843 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M130.922 48.5382 Q127.311 48.5382 125.482 52.103 Q123.677 55.6446 123.677 62.7742 Q123.677 69.8807 125.482 73.4454 Q127.311 76.9871 130.922 76.9871 Q134.556 76.9871 136.362 73.4454 Q138.191 69.8807 138.191 62.7742 Q138.191 55.6446 136.362 52.103 Q134.556 48.5382 130.922 48.5382 M130.922 44.8345 Q136.732 44.8345 139.788 49.4409 Q142.867 54.0243 142.867 62.7742 Q142.867 71.501 139.788 76.1075 Q136.732 80.6908 130.922 80.6908 Q125.112 80.6908 122.033 76.1075 Q118.978 71.501 118.978 62.7742 Q118.978 54.0243 122.033 49.4409 Q125.112 44.8345 130.922 44.8345 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M161.084 48.5382 Q157.473 48.5382 155.644 52.103 Q153.839 55.6446 153.839 62.7742 Q153.839 69.8807 155.644 73.4454 Q157.473 76.9871 161.084 76.9871 Q164.718 76.9871 166.524 73.4454 Q168.353 69.8807 168.353 62.7742 Q168.353 55.6446 166.524 52.103 Q164.718 48.5382 161.084 48.5382 M161.084 44.8345 Q166.894 44.8345 169.95 49.4409 Q173.029 54.0243 173.029 62.7742 Q173.029 71.501 169.95 76.1075 Q166.894 80.6908 161.084 80.6908 Q155.274 80.6908 152.195 76.1075 Q149.14 71.501 149.14 62.7742 Q149.14 54.0243 152.195 49.4409 Q155.274 44.8345 161.084 44.8345 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><polyline clip-path="url(#clip982)" style="stroke:#009af9; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  269.7,1445.72 471.938,1046.97 674.177,789.559 876.415,643.186 1078.65,577.57 1280.89,562.428 1483.13,567.475 1685.37,562.428 1887.61,517.002 2089.85,400.912 
+  2292.08,183.876 
+  "/>
+<polyline clip-path="url(#clip982)" style="stroke:#e26f46; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  269.7,87.9763 289.924,104.986 310.148,121.693 330.372,138.097 350.595,154.198 370.819,169.996 391.043,185.491 411.267,200.684 431.491,215.573 451.715,230.16 
+  471.938,244.444 492.162,258.426 512.386,272.104 532.61,285.479 552.834,298.552 573.058,311.322 593.282,323.789 613.505,335.953 633.729,347.814 653.953,359.373 
+  674.177,370.628 694.401,381.581 714.625,392.231 734.848,402.578 755.072,412.622 775.296,422.364 795.52,431.802 815.744,440.938 835.968,449.771 856.191,458.301 
+  876.415,466.528 896.639,474.453 916.863,482.074 937.087,489.393 957.311,496.409 977.535,503.122 997.758,509.532 1017.98,515.639 1038.21,521.443 1058.43,526.945 
+  1078.65,532.144 1098.88,537.04 1119.1,541.633 1139.33,545.923 1159.55,549.911 1179.77,553.595 1200,556.977 1220.22,560.056 1240.44,562.832 1260.67,565.305 
+  1280.89,567.475 1301.12,569.343 1321.34,570.908 1341.56,572.169 1361.79,573.128 1382.01,573.785 1402.24,574.138 1422.46,574.188 1442.68,573.936 1462.91,573.381 
+  1483.13,572.523 1503.35,571.362 1523.58,569.898 1543.8,568.131 1564.03,566.062 1584.25,563.69 1604.47,561.015 1624.7,558.037 1644.92,554.756 1665.15,551.172 
+  1685.37,547.286 1705.59,543.097 1725.82,538.604 1746.04,533.809 1766.26,528.712 1786.49,523.311 1806.71,517.607 1826.94,511.601 1847.16,505.292 1867.38,498.68 
+  1887.61,491.765 1907.83,484.547 1928.06,477.027 1948.28,469.203 1968.5,461.077 1988.73,452.648 2008.95,443.916 2029.17,434.881 2049.4,425.544 2069.62,415.903 
+  2089.85,405.96 2110.07,395.714 2130.29,385.165 2150.52,374.313 2170.74,363.158 2190.97,351.701 2211.19,339.94 2231.41,327.877 2251.64,315.511 2271.86,302.842 
+  2292.08,289.871 
+  "/>
+<path clip-path="url(#clip980)" d="
+M1990.68 250.738 L2281.3 250.738 L2281.3 95.2176 L1990.68 95.2176  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<polyline clip-path="url(#clip980)" style="stroke:#000000; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1990.68,250.738 2281.3,250.738 2281.3,95.2176 1990.68,95.2176 1990.68,250.738 
+  "/>
+<polyline clip-path="url(#clip980)" style="stroke:#009af9; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2014.5,147.058 2157.41,147.058 
+  "/>
+<path clip-path="url(#clip980)" d="M2195.07 166.745 Q2193.27 171.375 2191.55 172.787 Q2189.84 174.199 2186.97 174.199 L2183.57 174.199 L2183.57 170.634 L2186.07 170.634 Q2187.83 170.634 2188.8 169.8 Q2189.77 168.967 2190.95 165.865 L2191.72 163.921 L2181.23 138.412 L2185.74 138.412 L2193.85 158.689 L2201.95 138.412 L2206.46 138.412 L2195.07 166.745 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M2213.75 160.402 L2221.39 160.402 L2221.39 134.037 L2213.08 135.703 L2213.08 131.444 L2221.35 129.778 L2226.02 129.778 L2226.02 160.402 L2233.66 160.402 L2233.66 164.338 L2213.75 164.338 L2213.75 160.402 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><polyline clip-path="url(#clip980)" style="stroke:#e26f46; stroke-linecap:butt; stroke-linejoin:round; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2014.5,198.898 2157.41,198.898 
+  "/>
+<path clip-path="url(#clip980)" d="M2195.07 218.585 Q2193.27 223.215 2191.55 224.627 Q2189.84 226.039 2186.97 226.039 L2183.57 226.039 L2183.57 222.474 L2186.07 222.474 Q2187.83 222.474 2188.8 221.64 Q2189.77 220.807 2190.95 217.705 L2191.72 215.761 L2181.23 190.252 L2185.74 190.252 L2193.85 210.529 L2201.95 190.252 L2206.46 190.252 L2195.07 218.585 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /><path clip-path="url(#clip980)" d="M2216.97 212.242 L2233.29 212.242 L2233.29 216.178 L2211.35 216.178 L2211.35 212.242 Q2214.01 209.488 2218.59 204.858 Q2223.2 200.205 2224.38 198.863 Q2226.62 196.34 2227.5 194.604 Q2228.41 192.844 2228.41 191.155 Q2228.41 188.4 2226.46 186.664 Q2224.54 184.928 2221.44 184.928 Q2219.24 184.928 2216.79 185.692 Q2214.35 186.455 2211.58 188.006 L2211.58 183.284 Q2214.4 182.15 2216.85 181.571 Q2219.31 180.993 2221.35 180.993 Q2226.72 180.993 2229.91 183.678 Q2233.1 186.363 2233.1 190.854 Q2233.1 192.983 2232.29 194.905 Q2231.51 196.803 2229.4 199.395 Q2228.82 200.067 2225.72 203.284 Q2222.62 206.479 2216.97 212.242 Z" fill="#000000" fill-rule="evenodd" fill-opacity="1" /></svg>
+�persist_js_state¤mime�image/svg+xml�last_run_timestamp�A�nl-o�=�has_pluto_hook_features¬rootassignee��cell_id�$c73eb801-5e60-4f23-a267-a1cc80f127a0�depends_on_disabled_cells§runtime�   T�(��published_object_keys��errored��$bf896744-340a-45e5-81ef-07fae51761ab��queued§running¦output��body�"f (generic function with 1 method)�persist_js_state¤mime�text/plain�last_run_timestamp�A�nl|��has_pluto_hook_features¬rootassignee��cell_id�$bf896744-340a-45e5-81ef-07fae51761ab�depends_on_disabled_cells§runtime� 
+<�published_object_keys��errored��$21211524-6d5a-4bb3-9d0b-98e9ecdd9191��queued§running¦output��body�<div class="markdown"><h1>§3 - Introduction to automatic differentiation &#40;AD&#41;</h1>
+<p>Much inspired and from https://github.com/FluxML/model-zoo/blob/master/tutorials/60-minute-blitz/60-minute-blitz.jl ; in turn based on PyTorch tutorial</p>
+</div>�persist_js_state¤mime�text/html�last_run_timestamp�A�nk�5@�has_pluto_hook_features¬rootassignee��cell_id�$21211524-6d5a-4bb3-9d0b-98e9ecdd9191�depends_on_disabled_cells§runtime� �
+�published_object_keys��errored��$32240c3e-08cf-4203-9e81-39e5a1ac135c��queued§running¦output��body��elements����55�text/plain�type�Tuple�objectid�b8872b169aea2ae1�persist_js_state¤mime�!application/vnd.pluto.tree+object�last_run_timestamp�A�nl%?��has_pluto_hook_features¬rootassignee��cell_id�$32240c3e-08cf-4203-9e81-39e5a1ac135c�depends_on_disabled_cells§runtime�   ��published_object_keys��errored��$c12de372-f069-11eb-2c6e-fbbf708dc9d2��queued§running¦output��body��persist_js_state¤mime�text/plain�last_run_timestamp�A�nlĆ�has_pluto_hook_features¬rootassignee��cell_id�$c12de372-f069-11eb-2c6e-fbbf708dc9d2�depends_on_disabled_cells§runtime�   ��H�published_object_keys��errored��$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602��queued§running¦output��body�5�persist_js_state¤mime�text/plain�last_run_timestamp�A�nl��߷has_pluto_hook_features¬rootassignee�x�cell_id�$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602�depends_on_disabled_cells§runtime� ?�published_object_keys��errored±cell_dependencies��$daed3792-08a2-48b2-b044-3555fc6b1351��precedence_heuristic	�cell_id�$daed3792-08a2-48b2-b044-3555fc6b1351�downstream_cells_map��upstream_cells_map��f��$bf896744-340a-45e5-81ef-07fae51761ab�x��$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602�$c73eb801-5e60-4f23-a267-a1cc80f127a0��precedence_heuristic	�cell_id�$c73eb801-5e60-4f23-a267-a1cc80f127a0�downstream_cells_map��anon5236974805110916600��upstream_cells_map��f��$bf896744-340a-45e5-81ef-07fae51761ab�:��plot��gradient��plot!��$bf896744-340a-45e5-81ef-07fae51761ab��precedence_heuristic	�cell_id�$bf896744-340a-45e5-81ef-07fae51761ab�downstream_cells_map��f��$daed3792-08a2-48b2-b044-3555fc6b1351�$32240c3e-08cf-4203-9e81-39e5a1ac135c�$c73eb801-5e60-4f23-a267-a1cc80f127a0�upstream_cells_map��-��^��+��*��$21211524-6d5a-4bb3-9d0b-98e9ecdd9191��precedence_heuristic	�cell_id�$21211524-6d5a-4bb3-9d0b-98e9ecdd9191�downstream_cells_map��upstream_cells_map��getindex��$32240c3e-08cf-4203-9e81-39e5a1ac135c��precedence_heuristic	�cell_id�$32240c3e-08cf-4203-9e81-39e5a1ac135c�downstream_cells_map��upstream_cells_map��f��$bf896744-340a-45e5-81ef-07fae51761ab�gradient��x��$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602�$c12de372-f069-11eb-2c6e-fbbf708dc9d2��precedence_heuristic�cell_id�$c12de372-f069-11eb-2c6e-fbbf708dc9d2�downstream_cells_map��Plots��Flux��upstream_cells_map��$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602��precedence_heuristic	�cell_id�$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602�downstream_cells_map��x��$daed3792-08a2-48b2-b044-3555fc6b1351�$32240c3e-08cf-4203-9e81-39e5a1ac135c�upstream_cells_map��cell_execution_order��$c12de372-f069-11eb-2c6e-fbbf708dc9d2�$21211524-6d5a-4bb3-9d0b-98e9ecdd9191�$bf896744-340a-45e5-81ef-07fae51761ab�$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602�$daed3792-08a2-48b2-b044-3555fc6b1351�$32240c3e-08cf-4203-9e81-39e5a1ac135c�$c73eb801-5e60-4f23-a267-a1cc80f127a0�last_hot_reload_time�        �shortpath�03_IntroToAutoDiff.jl�process_status�ready�path�q/home/runner/work/2021-PhysicsMachineLearningPracticum/2021-PhysicsMachineLearningPracticum/03_IntroToAutoDiff.jl�last_save_time�A�nk�+�cell_order��$21211524-6d5a-4bb3-9d0b-98e9ecdd9191�$c12de372-f069-11eb-2c6e-fbbf708dc9d2�$bf896744-340a-45e5-81ef-07fae51761ab�$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602�$daed3792-08a2-48b2-b044-3555fc6b1351�$32240c3e-08cf-4203-9e81-39e5a1ac135c�$c73eb801-5e60-4f23-a267-a1cc80f127a0�published_objects��nbpkg��installed_versions��Flux�0.12.6�Plots�1.19.4�terminal_outputs��Plots�[32m[1m   Installed[22m[39m StructArrays ─────── v0.6.0
+[32m[1m   Installed[22m[39m JSON ─────────────── v0.21.1
+[32m[1m   Installed[22m[39m RecipesBase ──────── v1.1.1
+[32m[1m   Installed[22m[39m LogExpFunctions ──── v0.2.5
+[32m[1m   Installed[22m[39m Functors ─────────── v0.2.3
+[32m[1m   Installed[22m[39m Zygote ───────────── v0.6.17
+[32m[1m   Installed[22m[39m Plots ────────────── v1.19.4
+[32m[1m   Installed[22m[39m ArrayInterface ───── v3.1.19
+[32m[1m   Installed[22m[39m SpecialFunctions ─── v1.6.0
+[32m[1m   Installed[22m[39m FillArrays ───────── v0.12.1
+[32m[1m   Installed[22m[39m DiffRules ────────── v1.0.2
+[32m[1m   Installed[22m[39m StatsBase ────────── v0.33.8
+[32m[1m   Installed[22m[39m NNlib ────────────── v0.7.25
+[32m[1m   Installed[22m[39m LLVM ─────────────── v4.1.1
+[32m[1m   Installed[22m[39m Missings ─────────── v1.0.0
+[32m[1m   Installed[22m[39m Tables ───────────── v1.4.4
+[32m[1m   Installed[22m[39m DataStructures ───── v0.18.9
+[32m[1m   Installed[22m[39m GPUArrays ────────── v7.0.1
+[32m[1m   Installed[22m[39m MacroTools ───────── v0.5.6
+[32m[1m   Installed[22m[39m Parsers ──────────── v1.1.0
+[32m[1m   Installed[22m[39m ForwardDiff ──────── v0.10.18
+[32m[1m   Installed[22m[39m ChainRules ───────── v0.8.23
+[32m[1m   Installed[22m[39m PlotUtils ────────── v1.0.11
+[32m[1m   Installed[22m[39m StaticArrays ─────── v1.2.9
+[32m[1m   Installed[22m[39m Compat ───────────── v3.32.0
+[32m[1m   Installed[22m[39m HTTP ─────────────── v0.9.12
+[32m[1m   Installed[22m[39m GPUCompiler ──────── v0.12.6
+[32m[1m   Installed[22m[39m Reexport ─────────── v1.1.0
+[32m[1m   Installed[22m[39m LLVMExtra_jll ────── v0.0.6+0
+[32m[1m   Installed[22m[39m NNlibCUDA ────────── v0.1.7
+[32m[1m   Installed[22m[39m RecipesPipeline ──── v0.3.4
+[32m[1m   Installed[22m[39m RandomNumbers ────── v1.5.0
+[32m[1m   Installed[22m[39m TranscodingStreams ─ v0.9.5
+[32m[1m   Installed[22m[39m ChainRulesCore ───── v0.10.13
+[32m[1m   Installed[22m[39m CUDA ─────────────── v3.3.4
+[32m[1m   Installed[22m[39m ColorSchemes ─────── v3.13.0
+[32m[1m   Installed[22m[39m GR_jll ───────────── v0.58.0+0
+[32m[1m   Installed[22m[39m GR ───────────────── v0.58.0
+[32m[1m  No Changes[22m[39m to `/tmp/jl_pzbsrw/Project.toml`
+[32m[1m    Updating[22m[39m `/tmp/jl_pzbsrw/Manifest.toml`
+ [90m [0656b61e] [39m[93m↑ GLFW_jll v3.3.5+0 ⇒ v3.3.5+1[39m
+ [90m [7746bdde] [39m[93m↑ Glib_jll v2.68.3+0 ⇒ v2.68.3+1[39m
+ [90m [e9f186c6] [39m[93m↑ Libffi_jll v3.2.2+0 ⇒ v3.2.2+1[39m
+[32m[1m    Building[22m[39m GR → `~/.julia/scratchspaces/44cfe95a-1eb2-52ea-b672-e2afdf69b78f/9f473cdf6e2eb360c576f9822e7c765dd9d26dbc/build.log`
+[32m[1mPrecompiling[22m[39m project...
+[32m  ✓ [39m[90mReexport[39m
+[32m  ✓ [39m[90mDocStringExtensions[39m
+[32m  ✓ [39m[90mRecipesBase[39m
+[32m  ✓ [39m[90mIfElse[39m
+[32m  ✓ [39m[90mBFloat16s[39m
+[32m  ✓ [39m[90mTranscodingStreams[39m
+[33m  ✓ [39m[90mParsers[39m
+[32m  ✓ [39m[90mMacroTools[39m
+[32m  ✓ [39m[90mCompat[39m
+[32m  ✓ [39m[90mFillArrays[39m
+[32m  ✓ [39m[90mRandomNumbers[39m
+[32m  ✓ [39m[90mTimerOutputs[39m
+[32m  ✓ [39m[90mGPUArrays[39m
+[32m  ✓ [39m[90mStaticArrays[39m
+[32m  ✓ [39m[90mZipFile[39m
+[32m  ✓ [39m[90mMissings[39m
+[32m  ✓ [39m[90mTables[39m
+[33m  ✓ [39m[90mHTTP[39m
+[32m  ✓ [39m[90mLLVMExtra_jll[39m
+[32m  ✓ [39m[90mGR_jll[39m
+[32m  ✓ [39m[90mLogExpFunctions[39m
+[32m  ✓ [39m[90mStatic[39m
+[32m  ✓ [39m[90mCodecZlib[39m
+[33m  ✓ [39m[90mJSON[39m
+[32m  ✓ [39m[90mCommonSubexpressions[39m
+[32m  ✓ [39m[90mFunctors[39m
+[32m  ✓ [39m[90mMedia[39m
+[32m  ✓ [39m[90mZygoteRules[39m
+[32m  ✓ [39m[90mColors[39m
+[32m  ✓ [39m[90mIRTools[39m
+[32m  ✓ [39m[90mChainRulesCore[39m
+[32m  ✓ [39m[90mLatexify[39m
+[32m  ✓ [39m[90mRandom123[39m
+[32m  ✓ [39m[90mDataStructures[39m
+[32m  ✓ [39m[90mDiffResults[39m
+[32m  ✓ [39m[90mContour[39m
+[32m  ✓ [39m[90mStructArrays[39m
+[32m  ✓ [39m[90mArrayInterface[39m
+[32m  ✓ [39m[90mJuno[39m
+[32m  ✓ [39m[90mGR[39m
+[32m  ✓ [39m[90mLLVM[39m
+[32m  ✓ [39m[90mSpecialFunctions[39m
+[32m  ✓ [39m[90mChainRules[39m
+[32m  ✓ [39m[90mSortingAlgorithms[39m
+[32m  ✓ [39m[90mColorSchemes[39m
+[32m  ✓ [39m[90mNNlib[39m
+[32m  ✓ [39m[90mDiffRules[39m
+[32m  ✓ [39m[90mStatsBase[39m
+[32m  ✓ [39m[90mGPUCompiler[39m
+[32m  ✓ [39m[90mGeometryBasics[39m
+[32m  ✓ [39m[90mForwardDiff[39m
+[32m  ✓ [39m[90mPlotUtils[39m
+[32m  ✓ [39m[90mZygote[39m
+[32m  ✓ [39m[90mPlotThemes[39m
+[32m  ✓ [39m[90mRecipesPipeline[39m
+[32m  ✓ [39m[90mCUDA[39m
+[32m  ✓ [39m[90mNNlibCUDA[39m
+[32m  ✓ [39mFlux
+[32m  ✓ [39mPlots
+  59 dependencies successfully precompiled in 122 seconds (95 already precompiled)
+  [33m3[39m dependencies precompiled but different versions are currently loaded. Restart julia to access the new versions
+�Flux�[32m[1m   Installed[22m[39m StructArrays ─────── v0.6.0
+[32m[1m   Installed[22m[39m JSON ─────────────── v0.21.1
+[32m[1m   Installed[22m[39m RecipesBase ──────── v1.1.1
+[32m[1m   Installed[22m[39m LogExpFunctions ──── v0.2.5
+[32m[1m   Installed[22m[39m Functors ─────────── v0.2.3
+[32m[1m   Installed[22m[39m Zygote ───────────── v0.6.17
+[32m[1m   Installed[22m[39m Plots ────────────── v1.19.4
+[32m[1m   Installed[22m[39m ArrayInterface ───── v3.1.19
+[32m[1m   Installed[22m[39m SpecialFunctions ─── v1.6.0
+[32m[1m   Installed[22m[39m FillArrays ───────── v0.12.1
+[32m[1m   Installed[22m[39m DiffRules ────────── v1.0.2
+[32m[1m   Installed[22m[39m StatsBase ────────── v0.33.8
+[32m[1m   Installed[22m[39m NNlib ────────────── v0.7.25
+[32m[1m   Installed[22m[39m LLVM ─────────────── v4.1.1
+[32m[1m   Installed[22m[39m Missings ─────────── v1.0.0
+[32m[1m   Installed[22m[39m Tables ───────────── v1.4.4
+[32m[1m   Installed[22m[39m DataStructures ───── v0.18.9
+[32m[1m   Installed[22m[39m GPUArrays ────────── v7.0.1
+[32m[1m   Installed[22m[39m MacroTools ───────── v0.5.6
+[32m[1m   Installed[22m[39m Parsers ──────────── v1.1.0
+[32m[1m   Installed[22m[39m ForwardDiff ──────── v0.10.18
+[32m[1m   Installed[22m[39m ChainRules ───────── v0.8.23
+[32m[1m   Installed[22m[39m PlotUtils ────────── v1.0.11
+[32m[1m   Installed[22m[39m StaticArrays ─────── v1.2.9
+[32m[1m   Installed[22m[39m Compat ───────────── v3.32.0
+[32m[1m   Installed[22m[39m HTTP ─────────────── v0.9.12
+[32m[1m   Installed[22m[39m GPUCompiler ──────── v0.12.6
+[32m[1m   Installed[22m[39m Reexport ─────────── v1.1.0
+[32m[1m   Installed[22m[39m LLVMExtra_jll ────── v0.0.6+0
+[32m[1m   Installed[22m[39m NNlibCUDA ────────── v0.1.7
+[32m[1m   Installed[22m[39m RecipesPipeline ──── v0.3.4
+[32m[1m   Installed[22m[39m RandomNumbers ────── v1.5.0
+[32m[1m   Installed[22m[39m TranscodingStreams ─ v0.9.5
+[32m[1m   Installed[22m[39m ChainRulesCore ───── v0.10.13
+[32m[1m   Installed[22m[39m CUDA ─────────────── v3.3.4
+[32m[1m   Installed[22m[39m ColorSchemes ─────── v3.13.0
+[32m[1m   Installed[22m[39m GR_jll ───────────── v0.58.0+0
+[32m[1m   Installed[22m[39m GR ───────────────── v0.58.0
+[32m[1m  No Changes[22m[39m to `/tmp/jl_pzbsrw/Project.toml`
+[32m[1m    Updating[22m[39m `/tmp/jl_pzbsrw/Manifest.toml`
+ [90m [0656b61e] [39m[93m↑ GLFW_jll v3.3.5+0 ⇒ v3.3.5+1[39m
+ [90m [7746bdde] [39m[93m↑ Glib_jll v2.68.3+0 ⇒ v2.68.3+1[39m
+ [90m [e9f186c6] [39m[93m↑ Libffi_jll v3.2.2+0 ⇒ v3.2.2+1[39m
+[32m[1m    Building[22m[39m GR → `~/.julia/scratchspaces/44cfe95a-1eb2-52ea-b672-e2afdf69b78f/9f473cdf6e2eb360c576f9822e7c765dd9d26dbc/build.log`
+[32m[1mPrecompiling[22m[39m project...
+[32m  ✓ [39m[90mReexport[39m
+[32m  ✓ [39m[90mDocStringExtensions[39m
+[32m  ✓ [39m[90mRecipesBase[39m
+[32m  ✓ [39m[90mIfElse[39m
+[32m  ✓ [39m[90mBFloat16s[39m
+[32m  ✓ [39m[90mTranscodingStreams[39m
+[33m  ✓ [39m[90mParsers[39m
+[32m  ✓ [39m[90mMacroTools[39m
+[32m  ✓ [39m[90mCompat[39m
+[32m  ✓ [39m[90mFillArrays[39m
+[32m  ✓ [39m[90mRandomNumbers[39m
+[32m  ✓ [39m[90mTimerOutputs[39m
+[32m  ✓ [39m[90mGPUArrays[39m
+[32m  ✓ [39m[90mStaticArrays[39m
+[32m  ✓ [39m[90mZipFile[39m
+[32m  ✓ [39m[90mMissings[39m
+[32m  ✓ [39m[90mTables[39m
+[33m  ✓ [39m[90mHTTP[39m
+[32m  ✓ [39m[90mLLVMExtra_jll[39m
+[32m  ✓ [39m[90mGR_jll[39m
+[32m  ✓ [39m[90mLogExpFunctions[39m
+[32m  ✓ [39m[90mStatic[39m
+[32m  ✓ [39m[90mCodecZlib[39m
+[33m  ✓ [39m[90mJSON[39m
+[32m  ✓ [39m[90mCommonSubexpressions[39m
+[32m  ✓ [39m[90mFunctors[39m
+[32m  ✓ [39m[90mMedia[39m
+[32m  ✓ [39m[90mZygoteRules[39m
+[32m  ✓ [39m[90mColors[39m
+[32m  ✓ [39m[90mIRTools[39m
+[32m  ✓ [39m[90mChainRulesCore[39m
+[32m  ✓ [39m[90mLatexify[39m
+[32m  ✓ [39m[90mRandom123[39m
+[32m  ✓ [39m[90mDataStructures[39m
+[32m  ✓ [39m[90mDiffResults[39m
+[32m  ✓ [39m[90mContour[39m
+[32m  ✓ [39m[90mStructArrays[39m
+[32m  ✓ [39m[90mArrayInterface[39m
+[32m  ✓ [39m[90mJuno[39m
+[32m  ✓ [39m[90mGR[39m
+[32m  ✓ [39m[90mLLVM[39m
+[32m  ✓ [39m[90mSpecialFunctions[39m
+[32m  ✓ [39m[90mChainRules[39m
+[32m  ✓ [39m[90mSortingAlgorithms[39m
+[32m  ✓ [39m[90mColorSchemes[39m
+[32m  ✓ [39m[90mNNlib[39m
+[32m  ✓ [39m[90mDiffRules[39m
+[32m  ✓ [39m[90mStatsBase[39m
+[32m  ✓ [39m[90mGPUCompiler[39m
+[32m  ✓ [39m[90mGeometryBasics[39m
+[32m  ✓ [39m[90mForwardDiff[39m
+[32m  ✓ [39m[90mPlotUtils[39m
+[32m  ✓ [39m[90mZygote[39m
+[32m  ✓ [39m[90mPlotThemes[39m
+[32m  ✓ [39m[90mRecipesPipeline[39m
+[32m  ✓ [39m[90mCUDA[39m
+[32m  ✓ [39m[90mNNlibCUDA[39m
+[32m  ✓ [39mFlux
+[32m  ✓ [39mPlots
+  59 dependencies successfully precompiled in 122 seconds (95 already precompiled)
+  [33m3[39m dependencies precompiled but different versions are currently loaded. Restart julia to access the new versions
+�enabled÷restart_recommended_msg��restart_required_msg��busy_packages��instantiatedëcell_inputs��$daed3792-08a2-48b2-b044-3555fc6b1351��cell_id�$daed3792-08a2-48b2-b044-3555fc6b1351�running_disabled¤code�f(x)�code_folded��$c73eb801-5e60-4f23-a267-a1cc80f127a0��cell_id�$c73eb801-5e60-4f23-a267-a1cc80f127a0�running_disabled¤code�>begin
+	plot(f, -5:5)
+	plot!(x->gradient(f,x)[1], -5:0.1:5)
+end�code_folded��$bf896744-340a-45e5-81ef-07fae51761ab��cell_id�$bf896744-340a-45e5-81ef-07fae51761ab�running_disabled¤code�f(x) = x^3 - 2x^2 + 1�code_folded��$21211524-6d5a-4bb3-9d0b-98e9ecdd9191��cell_id�$21211524-6d5a-4bb3-9d0b-98e9ecdd9191�running_disabled¤code��md"""
+# §3 - Introduction to automatic differentiation (AD)
+
+
+Much inspired and from https://github.com/FluxML/model-zoo/blob/master/tutorials/60-minute-blitz/60-minute-blitz.jl ; in turn based on PyTorch tutorial
+
+"""�code_folded��$32240c3e-08cf-4203-9e81-39e5a1ac135c��cell_id�$32240c3e-08cf-4203-9e81-39e5a1ac135c�running_disabled¤code�gradient(f, x)�code_folded��$c12de372-f069-11eb-2c6e-fbbf708dc9d2��cell_id�$c12de372-f069-11eb-2c6e-fbbf708dc9d2�running_disabled¤code�using Flux, Plots�code_folded��$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602��cell_id�$1e1b5c68-b6ad-4c22-b7fb-7fbe2d3be602�running_disabled¤code�x=5�code_folded«notebook_id�$2868aef8-5d86-11ec-3ad0-eb2a37092139�in_temp_dir�
